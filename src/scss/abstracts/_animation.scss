@@ -1,0 +1,65 @@
+$show: show;
+$hide: hide;
+$slideUp: slideUp;
+$rorate: rorate;
+$slideToRight: slideToRight;
+$slideToBottom: slideToBottom;
+@keyframes show {
+  from {
+    opacity: 0;
+    transform: scale(0);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes hide {
+  to {
+    opacity: 0;
+    transform: scale(0);
+  }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes rorate {
+  from {
+    transform: rotateY(0);
+  }
+  to {
+    transform: rotateY(-360deg);
+  }
+}
+
+@keyframes slideToRight {
+  from {
+    opacity: 0;
+    transform: translateX(-100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideToBottom {
+  from {
+    opacity: 0;
+    transform: translateY(-10%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

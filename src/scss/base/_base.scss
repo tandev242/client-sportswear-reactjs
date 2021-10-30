@@ -1,0 +1,24 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  // font-family: "Roboto", sans-serif;
+  font-family: "Saira Condensed", sans-serif;
+  font-size: 62.5%;
+  @media screen and (max-width: 1024px) {
+    font-size: 20%;
+  }
+}
+.btn {
+  min-width: 150px;
+  padding: 4px 16px;
+  border-radius: 4px;
+  border: none;
+}
+.btn--disable {
+  cursor: default !important;
+  opacity: 0.5;
+}

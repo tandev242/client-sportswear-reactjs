@@ -1,0 +1,29 @@
+@for $i from 1 through $columns {
+  .col-#{$i} {
+    width: (100% / 12) * $i;
+    flex: 0 0 (100% / 12) * $i;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+.col-2-4 {
+  width: 20%;
+  flex: 0 0 20%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.col-8-4 {
+  width: 80%;
+  flex: 0 0 80%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-left: -10px;
+  margin-right: -10px;
+}

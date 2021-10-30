@@ -1,0 +1,258 @@
+.navbar-top {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  position: relative;
+  &__logo {
+    text-align: center;
+    padding: 0 76px;
+    &-link {
+      color: $white;
+      text-decoration: none;
+      font-size: 1.6rem;
+      line-height: 1.6rem;
+      & img {
+        height: 50px;
+      }
+    }
+  }
+
+  &__search {
+    flex: 1;
+    background-color: $white;
+    position: relative;
+    border-radius: 2px;
+    border: none;
+    &-input {
+      width: 100%;
+      outline: none;
+      padding: 8px 58px 8px 16px;
+      border: none;
+      font-size: 1rem;
+      color: #666;
+      border-radius: 2px;
+      border: none;
+    }
+
+    &-icon {
+      position: absolute;
+      top: 1px;
+      right: 1px;
+      width: 52px;
+      height: 96%;
+      padding: 10px;
+      text-align: center;
+      cursor: pointer;
+      background: $main-color;
+      color: $white;
+      border: none;
+
+      &:hover {
+        background-color: $hover-color;
+        color: $black;
+      }
+    }
+  }
+
+  &__user {
+    display: flex;
+    color: $white;
+    padding-left: 252px;
+
+    &-info {
+      margin-right: 8px;
+      cursor: pointer;
+      position: relative;
+      & img {
+        width: 34px;
+        height: 34px;
+        border-radius: 50%;
+      }
+      &-box {
+        background-color: rgb(241, 226, 226);
+        position: absolute;
+        top: calc(100% + 5px);
+        right: -8px;
+        width: 180px;
+        border-radius: 2px;
+        box-shadow: 0 3px 5px rgba($color: #3b3b3b, $alpha: 0.5);
+        display: none;
+        transform-origin: calc(100% - 20px) 0;
+        animation: $show linear 0.25s;
+        z-index: 1;
+
+        &::after {
+          content: "";
+          position: absolute;
+          top: -10px;
+          right: 10px;
+          border-bottom: 10px solid rgb(173, 170, 170);
+          border-left: 12px solid transparent;
+          border-right: 12px solid transparent;
+        }
+        // CSS cho ul list
+        & .list {
+          list-style: none;
+          width: 100%;
+          & .box-item .link {
+            display: block;
+            text-decoration: none;
+            font-size: 1.1rem;
+            padding: 8px 16px;
+            color: $primary-text;
+            @include text-over;
+          }
+          & .box-item .link:hover {
+            color: $main-color;
+            background-color: $hover-color;
+          }
+          & li:last-child .link {
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: $hover-link;
+          }
+        }
+      }
+
+      &::before {
+        content: "";
+        position: absolute;
+        top: 100%;
+        right: 0;
+        width: 100%;
+        height: 12px;
+      }
+
+      &:hover &-box {
+        display: block;
+      }
+
+      &--define:hover &-box .list:first-child {
+        display: none;
+      }
+      &--define:hover &-box .list:last-child {
+        display: block;
+      }
+
+      &--undefine:hover &-box .list:first-child {
+        display: block;
+      }
+      &--undefine:hover &-box .list:last-child {
+        display: none;
+      }
+    }
+
+    &-cart {
+      cursor: pointer;
+      position: relative;
+      color: $white;
+      & .quantity {
+        padding: 0 6px;
+        position: absolute;
+        top: -5px;
+        right: -5px;
+        font-weight: 600;
+        font-size: 0.8rem;
+        background-color: rgb(167, 167, 61);
+        border-radius: 50%;
+      }
+      &-box {
+        position: absolute;
+        top: calc(100% + 5px);
+        right: -8px;
+        width: 350px;
+        border-radius: 2px;
+        z-index: 5;
+        background-color: $bg-box;
+        display: none;
+        transform-origin: right top;
+        animation: $show linear 0.2s;
+        & .title {
+          @include text-title;
+          padding: 8px;
+          border-bottom: 1px solid #ccc;
+        }
+        & .body {
+          padding: 8px 0;
+          & .item {
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid #ccc;
+            &-img {
+              width: 50px;
+              height: 50px;
+            }
+            &-body {
+              padding: 0 4px;
+              flex: 1;
+
+              & .name {
+                font-size: 0.8rem;
+                color: $primary-text;
+                text-transform: uppercase;
+                width: 190px;
+                @include text-over;
+              }
+              & .size {
+                font-size: 0.8rem;
+                color: $second-text;
+              }
+            }
+            &-price {
+              width: 60px;
+              color: #666;
+              font-size: 0.8rem;
+              font-weight: 600;
+              @include text-over;
+            }
+            &:hover {
+              background-color: $hv-box;
+            }
+          }
+          &-cart-empty {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: rgb(218, 93, 21);
+            padding: 16px 8px;
+          }
+        }
+        &::after {
+          content: "";
+          position: absolute;
+          top: -10px;
+          right: 10px;
+          border-bottom: 10px solid $bg-box;
+          border-left: 12px solid transparent;
+          border-right: 12px solid transparent;
+        }
+      }
+      &:hover .navbar-top__user-cart-box {
+        display: block;
+      }
+    }
+
+    &-info:hover,
+    &-cart:hover {
+      color: $hover-link;
+    }
+  }
+  & .mobile-menu {
+    display: none;
+  }
+}
+@media screen and (max-width: 1024px) {
+  .navbar-top {
+    & .mobile-menu {
+      display: block;
+      position: absolute;
+      left: 16px;
+      color: $white;
+      cursor: pointer;
+      &:hover {
+        color: $hover-link;
+      }
+    }
+  }
+}

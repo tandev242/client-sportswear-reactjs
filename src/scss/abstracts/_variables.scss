@@ -1,0 +1,30 @@
+$white: #fff;
+$black: #000;
+$hover-color: opacify(
+  $color: rgb(233, 195, 195),
+  $amount: 0.5,
+);
+$auth-text: rgb(218, 213, 213);
+$main-color: #c41f1b;
+// $color1: #3d3633;
+// $color2: #55574c;
+$color1: #3d3633;
+$color2: #8d2f2a;
+$label-color: rgb(245, 51, 17);
+$hover-banner: rgb(245, 51, 17);
+$hover-link: #ffb344;
+$primary-text: #333;
+$second-text: #777;
+$red-o: rgb(230, 42, 42);
+$footer-heading: rgb(212, 203, 188);
+$color-update: rgb(4, 129, 187);
+// #1d0b03 : mau den
+// #f51b38 : mau hong
+// cart-box-color
+$bg-box: rgb(248, 234, 234);
+$hv-box: rgb(250, 237, 179);
+
+// Columns
+$columns: 12;
+
+$font: "Saira Condensed", sans-serif;

@@ -1,0 +1,156 @@
+.form {
+  width: 100%;
+
+  .wrapper {
+    width: 100%;
+    align-self: center;
+    border: 1px solid #ccc;
+    margin-top: 40px;
+    box-shadow: 0px 1px 5px #ccc;
+    &-heading {
+      @include heading-text;
+    }
+    &-body {
+      width: 100%;
+      text-align: center;
+      & .form-control {
+        border: 1px solid #ccc;
+        margin: 32px auto;
+        padding: 32px 16px;
+        width: 360px;
+        background-image: linear-gradient(180deg, $color2, $color1);
+        border-radius: 4px;
+        box-shadow: 1px 1px 10px rgb(43, 40, 40);
+        &__input {
+          border: 1px solid #ccc;
+          display: flex;
+          margin-bottom: 10px;
+          border-radius: 50px;
+          overflow: hidden;
+          position: relative;
+
+          &-icon {
+            height: 100%;
+            text-align: center;
+            padding: 10px 12px 4px;
+            color: #ccc;
+          }
+          &-text {
+            background-color: transparent;
+            outline: none;
+            border: none;
+            width: 100%;
+            padding: 8px 36px 4px 10px;
+            font-size: 1rem;
+            line-height: 1.5rem;
+            border-left: 1px solid #ccc;
+            color: $auth-text;
+
+            &:focus {
+              color: white;
+            }
+
+            &::placeholder {
+              color: #ccc;
+            }
+          }
+
+          &-eye {
+            position: absolute;
+            top: 1px;
+            right: 1px;
+            padding: 8px;
+            cursor: pointer;
+            color: #ccc;
+          }
+        }
+
+        &__link {
+          display: flex;
+          justify-content: space-between;
+          font-size: 0.9rem;
+          margin-bottom: 24px;
+
+          &-forget {
+            color: rgb(230, 230, 132);
+          }
+          &-register {
+            color: rgb(230, 230, 132);
+          }
+        }
+
+        &__btn {
+          border: 1px solid $white;
+          color: $white;
+          background-color: transparent;
+          font-size: 1rem;
+          padding: 8px;
+          cursor: pointer;
+          margin-top: 24px;
+
+          &:hover {
+            border: 1px solid #e53935;
+            background-color: #e53935;
+            color: $white;
+          }
+        }
+
+        &__separate {
+          margin: 16px 0;
+          color: #ccc;
+          font-size: 0.8rem;
+          position: relative;
+          &::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 15%;
+            height: 1px;
+            width: 70px;
+            background-color: #ccc;
+          }
+          &::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            right: 15%;
+            height: 1px;
+            width: 70px;
+            background-color: #ccc;
+          }
+        }
+        &__gg {
+          background-color: $white;
+          font-size: 1rem;
+          padding: 8px 16px 8px 12px;
+          cursor: pointer;
+          display: flex;
+          margin: 0 auto;
+
+          &-icon {
+            padding-right: 8px;
+            width: 24px;
+          }
+          &:hover {
+            background-color: rgb(14, 200, 224);
+            color: rgb(0, 0, 0);
+          }
+        }
+        &__go-login {
+          margin: 16px 0;
+          font-size: 1rem;
+          color: #ccc;
+          & a {
+            padding-left: 4px;
+            color: rgb(230, 230, 132);
+          }
+        }
+        & .error-input {
+          font-size: 1rem;
+          margin-bottom: 16px;
+          color: #ec7270;
+        }
+      }
+    }
+  }
+}

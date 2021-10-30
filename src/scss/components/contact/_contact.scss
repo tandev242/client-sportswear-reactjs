@@ -1,0 +1,66 @@
+.contact {
+  & .wrapper {
+    width: 100%;
+    align-self: center;
+    border: 1px solid #ccc;
+    margin-top: 40px;
+    box-shadow: 0px 1px 5px #ccc;
+    &-heading {
+      @include heading-text;
+    }
+    &-body {
+      padding: 16px;
+      &__info {
+        font-size: 1.2rem;
+        line-height: 1.6rem;
+        margin-bottom: 24px;
+        &-title {
+          text-transform: uppercase;
+          text-decoration: underline;
+        }
+        &-content {
+          font-weight: 600;
+        }
+      }
+      &__wonder {
+        &-heading {
+          font-size: 1.5rem;
+        }
+        & .form-btn {
+          padding: 32px 0 0 0;
+          margin-bottom: 20px;
+          & .wonder-btn {
+            font-size: 1.2rem;
+            font-weight: 600;
+            padding: 16px 24px;
+            cursor: pointer;
+            border: 1px solid rgb(3, 117, 166);
+            background: transparent;
+            position: relative;
+            overflow: hidden;
+            color: rgb(3, 117, 166);
+            &:hover {
+              color: $white;
+            }
+            &:hover::before {
+              display: block;
+            }
+            &::before {
+              content: "";
+              background: rgb(3, 117, 166);
+              border: 1px solid rgb(3, 117, 166);
+              width: 100%;
+              height: 100%;
+              top: 0;
+              left: 0;
+              position: absolute;
+              display: none;
+              animation: $slideToRight 0.25s linear;
+              z-index: -1;
+            }
+          }
+        }
+      }
+    }
+  }
+}

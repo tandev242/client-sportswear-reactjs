@@ -1,0 +1,101 @@
+.navbar-left {
+  width: 100%;
+  &__heading {
+    @include text-title;
+    font-size: 1.4rem;
+    padding: 10px 16px;
+  }
+  &-category {
+    list-style: none;
+    margin-bottom: 20px;
+    &__item {
+      position: relative;
+
+      &-link {
+        @include remove-a;
+        font-size: 1.1rem;
+        font-weight: 400;
+        line-height: 1.5rem;
+        color: $second-text;
+        text-transform: uppercase;
+        display: block;
+        padding: 10px 8px 8px 8px;
+
+        & .add {
+          position: absolute;
+          right: 16px;
+          top: 12px;
+        }
+        &:hover {
+          color: $hover-banner;
+        }
+        &:hover .sub-category {
+          display: block;
+        }
+        & .sub-category {
+          list-style: none;
+          display: none;
+          &__item-link {
+            @include remove-a;
+            font-size: 1.1rem;
+            font-weight: 400;
+            line-height: 1.1rem;
+            display: block;
+            color: $second-text;
+            padding: 8px 0 8px 16px;
+
+            &:hover {
+              color: $hover-banner;
+            }
+          }
+        }
+      }
+      &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 50%;
+        width: 90%;
+        height: 1px;
+        background-color: #ccc;
+        transform: translateX(-50%);
+      }
+      &:last-child::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        width: 90%;
+        height: 1px;
+        background-color: #ccc;
+        transform: translateX(-50%);
+      }
+    }
+  }
+  &-sizes,
+  &-price {
+    padding: 8px;
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    &__heading {
+      font-size: 0.9rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      width: 100%;
+    }
+    &__options {
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      width: 100%;
+      label {
+        padding-left: 8px;
+      }
+    }
+  }
+  &-sizes__options {
+    width: 50%;
+  }
+}

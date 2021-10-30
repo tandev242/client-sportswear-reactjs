@@ -1,0 +1,22 @@
+.container {
+  width: 1200px;
+  margin: 0 auto;
+  @media screen and (max-width: 1024px) {
+    width: 800px;
+  }
+}
+
+.mgb-45 {
+  margin-bottom: 45px;
+}
+
+.mgb-30 {
+  margin-bottom: 30px;
+}
+.mgt-20 {
+  margin-top: 20px;
+}
+
+.mgt-25 {
+  margin-top: 25px;
+}

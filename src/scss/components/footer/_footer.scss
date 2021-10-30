@@ -1,0 +1,54 @@
+.footer {
+  padding: 20px 0;
+  background: $color1;
+
+  &-action {
+    &__heading {
+      @include text-title;
+      color: $footer-heading;
+      padding-bottom: 10px;
+      cursor: default;
+    }
+
+    &__list {
+      list-style: none;
+
+      &-item-link {
+        @include remove-a;
+        @include text-description;
+        @include text-over;
+        display: block;
+        font-size: 1rem;
+
+        &-icon {
+          padding-right: 8px;
+          position: relative;
+          top: 2px;
+        }
+        &.link-flex {
+          display: flex;
+          align-content: center;
+        }
+        &-text {
+          @include text-over;
+        }
+
+        &:hover {
+          color: $hover-link;
+        }
+      }
+    }
+  }
+  .footer-copyright {
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+    font-size: 1rem;
+    color: $footer-heading;
+    user-select: none;
+    letter-spacing: 1px;
+    & h4 {
+      padding-left: 4px;
+    }
+  }
+}

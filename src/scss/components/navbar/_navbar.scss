@@ -1,0 +1,15 @@
+.navbar {
+  width: 100%;
+  height: 120px;
+  padding: 10px 0;
+  position: fixed;
+  @include backgroundHeader;
+  z-index: 2;
+  box-shadow: 0 1px 3px rgba($color: #000000, $alpha: 0.8);
+}
+
+@media screen and (max-width: 1024px) {
+  .navbar {
+    height: 76px;
+  }
+}
