@@ -191,8 +191,8 @@ const Login = () => {
                   <GoogleLogin
                     clientId="707494384451-n2h8k22labbk1hqo3abuen1i5kdp40dn.apps.googleusercontent.com"
                     buttonText="Đăng nhập bằng Google"
-                    onSuccess={handleLoginByGoogle}
-                    onFailure={handleLoginByGoogle}
+                    onSuccess={(googleData) => handleLoginByGoogle(googleData)}
+                    onFailure={(googleData) => handleLoginByGoogle(googleData)}
                     cookiePolicy={"single_host_origin"}
                   />
                 </form>
