@@ -24,8 +24,8 @@ export const addOrder = createAsyncThunk(
 
 export const paymentWithMomo = createAsyncThunk(
   "order/paymentWithMomo",
-  async (amount) => {
-    const response = await orderAPI.paymentWithMomo(amount);
+  async (order) => {
+    const response = await orderAPI.paymentWithMomo(order);
     return response;
   }
 );

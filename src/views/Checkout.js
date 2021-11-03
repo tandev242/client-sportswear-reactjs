@@ -79,9 +79,7 @@ const Checkout = (props) => {
         history.replace("/cart");
       }
     } else if (paymentType === "card") {
-      const res = await dispatch(
-        paymentWithMomo({ amount: totalAmount })
-      ).unwrap();
+      const res = await dispatch(paymentWithMomo({ order })).unwrap();
       const url = res.data.url;
       if (url) {
         window.location.href = url;
@@ -216,8 +214,8 @@ const Checkout = (props) => {
                                 {new Intl.NumberFormat("de-DE").format(
                                   (orderItem.product.price -
                                     (orderItem.product.discountPercent / 100) *
-                                      orderItem.product.price) *
-                                    orderItem.quantity
+                                    orderItem.product.price) *
+                                  orderItem.quantity
                                 )}
                               </p>
                             </div>

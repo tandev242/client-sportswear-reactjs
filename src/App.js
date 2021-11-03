@@ -26,6 +26,7 @@ import { getDeliveryInfo } from "./features/deliveryInfo/deliveryInfoSlice";
 import { getCartItems } from "./features/cart/cartSlice";
 import "react-toastify/dist/ReactToastify.css";
 import "./scss/app.scss";
+import { getAllOrders } from "./features/order/orderSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ function App() {
     } else {
       dispatch(getDeliveryInfo());
       dispatch(getCartItems());
+      dispatch(getAllOrders());
     }
   }, [auth.authenticate]);
 

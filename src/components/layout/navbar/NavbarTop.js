@@ -117,7 +117,7 @@ const NavbarTop = () => {
                 </li>
 
                 <li className="box-item">
-                  <NavLink to={`/account`} className="link">
+                  <NavLink to={`/order`} className="link">
                     Tra cứu đơn hàng
                   </NavLink>
                 </li>
@@ -173,12 +173,12 @@ const NavbarTop = () => {
                 {cartItems.map((item, index) => (
                   <div className="item" key={index}>
                     <img
-                      src={item.product.productPictures[0].img}
-                      alt={item.product.name}
+                      src={item.product?.productPictures[0].img}
+                      alt={item.product?.name}
                       className="item-img"
                     />
                     <div className="item-body">
-                      <h5 className="name">{item.product.name}</h5>
+                      <h5 className="name">{item.product?.name}</h5>
                       <p className="size">
                         Size: {item.size.size} - Số lượng : {item.quantity}
                       </p>
@@ -186,9 +186,9 @@ const NavbarTop = () => {
                     <div className="item-price">
                       ₫
                       {new Intl.NumberFormat("de-DE").format(
-                        (item.product.price -
-                          (item.product.discountPercent / 100) *
-                            item.product.price) *
+                        (item.product?.price -
+                          (item.product?.discountPercent / 100) *
+                            item.product?.price) *
                           item.quantity
                       )}
                     </div>

@@ -15,7 +15,12 @@ export default function Layout(props) {
 
   return (
     <div>
-      {auth.loading || product.loading || cart.loading || deliveryInfo.loading || user.loading || order.loading ? (
+      {auth.loading ||
+      product.loading ||
+      cart.loading ||
+      deliveryInfo.loading ||
+      user.loading ||
+      order.loading ? (
         <Stack
           sx={{
             width: "100%",

@@ -2,6 +2,7 @@ import axios from "axios";
 // import store from "../app/store";
 
 const api = "https://api-sportswear.herokuapp.com/api";
+// const api = "http://localhost:5000/api";
 
 const axiosInstance = axios.create({
   baseURL: api,

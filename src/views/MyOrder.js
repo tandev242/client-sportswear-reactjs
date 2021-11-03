@@ -1,7 +1,10 @@
 import React from "react";
+import { useSelector } from "react-redux";
 import Layout from "../components/layout/Layout";
 import OrderItem from "../components/layout/order/OrderItem";
 const MyOrder = () => {
+  const orders = useSelector((state) => state.order);
+  console.log(orders);
   return (
     <Layout>
       <div className="account">
@@ -25,7 +28,7 @@ const MyOrder = () => {
                 </div>
                 <div className="account-wrapper__order__body">
                   {/* 1 đơn hàng trong list các đơn hàng */}
-                  <OrderItem />
+                  <OrderItem orders={orders} />
                 </div>
               </div>
             </div>
