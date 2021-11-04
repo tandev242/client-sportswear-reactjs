@@ -23,8 +23,6 @@ export const removeCartItem = createAsyncThunk(
   }
 );
 
-
-
 //tạo 1 initialState Cart
 const initialState = {
   cartItems: [],
@@ -35,6 +33,9 @@ const initialState = {
 export const cartSlice = createSlice({
   name: "cart",
   initialState,
+  reducers: {
+    resetCartSlice: () => initialState,
+  },
   extraReducers: {
     [addToCart.pending]: (state) => {
       state.loading = true;
@@ -71,4 +72,5 @@ export const cartSlice = createSlice({
   },
 });
 
+export const { resetCartSlice } = cartSlice.actions;
 export default cartSlice.reducer;

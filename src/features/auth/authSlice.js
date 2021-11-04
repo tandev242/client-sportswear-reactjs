@@ -1,4 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { resetCartSlice } from "../cart/cartSlice";
+import { resetOrderSlice } from "../order/orderSlice";
+import { resetDeliveryInfoSlice } from "../deliveryInfo/deliveryInfoSlice";
 import authAPI from "../../api/authAPI";
 
 export const login = createAsyncThunk("auth/login", async (user) => {
@@ -9,20 +12,29 @@ export const register = createAsyncThunk("auth/register", async (user) => {
   const response = await authAPI.register(user);
   return response;
 });
-export const logout = createAsyncThunk("auth/logout", async (user) => {
-  const response = await authAPI.logout(user);
-  return response;
-});
+export const logout = createAsyncThunk(
+  "auth/logout",
+  async (user, thunkAPI) => {
+    const response = await authAPI.logout(user);
+    await thunkAPI.dispatch(resetDeliveryInfoSlice());
+    await thunkAPI.dispatch(resetOrderSlice());
+    await thunkAPI.dispatch(resetCartSlice());
+    return response;
+  }
+);
 
 export const loginByGoogle = createAsyncThunk("auth/google", async (token) => {
   const response = await authAPI.loginByGoogle(token);
   return response;
 });
 
-export const isUserLoggedIn = createAsyncThunk("auth/isUserLoggedIn", async () => {
-  const response = await authAPI.isUserLoggedIn();
-  return response;
-});
+export const isUserLoggedIn = createAsyncThunk(
+  "auth/isUserLoggedIn",
+  async () => {
+    const response = await authAPI.isUserLoggedIn();
+    return response;
+  }
+);
 
 const initialState = {
   user: null,
@@ -100,7 +112,7 @@ export const authSlice = createSlice({
     },
     [isUserLoggedIn.rejected]: (state, action) => {
       state.loading = false;
-      state.error = action.error.message
+      state.error = action.error.message;
     },
     [isUserLoggedIn.fulfilled]: (state, action) => {
       state.loading = false;

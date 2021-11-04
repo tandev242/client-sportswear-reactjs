@@ -8,7 +8,6 @@ const NavbarTop = () => {
   const history = useHistory();
   const auth = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.cart);
-  console.log(cartItems);
   const [searchText, setSearchText] = useState("");
   // Handle logout => clear token
   const handleLogOut = () => {
@@ -188,8 +187,8 @@ const NavbarTop = () => {
                       {new Intl.NumberFormat("de-DE").format(
                         (item.product?.price -
                           (item.product?.discountPercent / 100) *
-                            item.product?.price) *
-                          item.quantity
+                          item.product?.price) *
+                        item.quantity
                       )}
                     </div>
                   </div>

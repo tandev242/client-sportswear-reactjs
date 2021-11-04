@@ -1,21 +1,29 @@
 import React from "react";
 import { Link } from "react-router-dom";
 const OrderItem = (props) => {
-  const { orders } = props.orders;
-  console.log(orders);
+  const orders = props.orders;
+
   const orderStatus = (order) => {
-    const status = order.orderStatus.find((item) => item.isCompleted === true);
+    const lastOrderStatus = () => {
+      var orderStatusObj = null
+      order.orderStatus.forEach(status => {
+        if (status.isCompleted) {
+          orderStatusObj = status
+        }
+      })
+      return orderStatusObj
+    }
+    const status = lastOrderStatus();
     switch (status.type) {
       case "ordered":
         return "Đã đặt hàng";
-
       case "packed":
         return "Đã đóng gói";
-
       case "shipped":
         return "Đang giao hàng";
       case "delivered":
-        return "Đã giao thành công";
+        return "Giao hàng thành công";
+      default: return ""
     }
   };
   return (
@@ -33,7 +41,7 @@ const OrderItem = (props) => {
             <ul className="order-item__body-list-item">
               {order.items.map((item) => (
                 <li className="item">
-                  <Link to="" className="item-link">
+                  <Link to={`/product/${item.productId.slug}`} className="item-link">
                     <div className="photo">
                       <img
                         src={item.productId.productPictures[0].img}
@@ -51,15 +59,13 @@ const OrderItem = (props) => {
                       <p className="price__old">
                         ₫
                         {new Intl.NumberFormat("de-DE").format(
-                          item.productId?.price
+                          item.productId.price * item.purchaseQty
                         )}
                       </p>
                       <p className="price__current">
                         ₫
                         {new Intl.NumberFormat("de-DE").format(
-                          item.productId?.price -
-                            (item.productId?.discountPercent / 100) *
-                              item.productId?.price
+                          item.payablePrice
                         )}
                       </p>
                     </div>

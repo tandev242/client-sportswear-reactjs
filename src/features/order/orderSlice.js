@@ -14,13 +14,10 @@ export const getOrderById = createAsyncThunk(
   }
 );
 
-export const addOrder = createAsyncThunk(
-  "order/addOrder",
-  async (order) => {
-    const response = await orderAPI.addOrder(order);
-    return response;
-  }
-);
+export const addOrder = createAsyncThunk("order/addOrder", async (order) => {
+  const response = await orderAPI.addOrder(order);
+  return response;
+});
 
 export const paymentWithMomo = createAsyncThunk(
   "order/paymentWithMomo",
@@ -29,14 +26,18 @@ export const paymentWithMomo = createAsyncThunk(
     return response;
   }
 );
+const initialState = {
+  orders: [],
+  order: {},
+  loading: false,
+  error: null,
+};
 
 export const orderSlice = createSlice({
   name: "order",
-  initialState: {
-    orders: [],
-    order: {},
-    loading: false,
-    error: null,
+  initialState,
+  reducers: {
+    resetOrderSlice: () => initialState,
   },
   extraReducers: {
     [getAllOrders.pending]: (state) => {
@@ -85,4 +86,5 @@ export const orderSlice = createSlice({
   },
 });
 
+export const { resetOrderSlice } = orderSlice.actions;
 export default orderSlice.reducer;
