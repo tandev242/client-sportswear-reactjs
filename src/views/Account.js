@@ -16,6 +16,13 @@ import {
   deleteDeliveryInfo,
   setDefaultDeliveryInfo,
 } from "../features/deliveryInfo/deliveryInfoSlice";
+import { updateUserInfo } from "../features/user/userSlice";
+import { sendOtpToEmail } from "../features/auth/authSlice";
+import { ToastContainer, toast } from "react-toastify";
+import { settings } from "../components/toasts/settingToast";
+import { passwordSchema, nameSchema } from "../validation/authValidations";
+import noImage from "../assets/images/account/images.png";
+
 const Account = () => {
   const { user } = useSelector((state) => state.auth);
   const { deliveryInfo } = useSelector((state) => state.deliveryInfo);
@@ -26,7 +33,45 @@ const Account = () => {
   const [newDeliveryInfo, setNewDeliveryInfo] = useState({});
   const [formAddressOpen, setFormAddressOpen] = useState(false);
   const [showChangePassword, setShowChangePassword] = useState(false);
-  // Dùng để kích hoạt chọn ở selectbox
+  const [isDisabled, setDisabled] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    name: "",
+    profilePicture: null,
+    profilePictureToChange: null,
+    password: "",
+    email: "",
+    otp: ""
+  });
+
+  useEffect(() => {
+    if (user) {
+      setUserInfo({
+        ...userInfo,
+        name: user.name,
+        profilePicture: user.profilePicture,
+        email: user.email
+      })
+    }
+  }, [user])
+
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordValid, setPasswordValid] = useState(true);
+
+  const [nameValid, setNameValid] = useState(true);
+  const checkNameValidation = (value) => {
+    nameSchema
+      .validate({ name: value })
+      .then(() => setNameValid(true))
+      .catch(() => setNameValid(false));
+    console.log(nameValid);
+  };
+
+  const checkPasswordValidation = (value) => {
+    passwordSchema
+      .validate({ password: value })
+      .then(() => setPasswordValid(true))
+      .catch(() => setPasswordValid(false));
+  };
 
   const dispatch = useDispatch();
 
@@ -59,6 +104,7 @@ const Account = () => {
     const payload = {
       addressId,
     };
+
     dispatch(setDefaultDeliveryInfo({ payload }));
   };
 
@@ -85,6 +131,58 @@ const Account = () => {
     }
     return arr;
   };
+
+  const handleUpdateUserInfo = async (e) => {
+    e.preventDefault();
+    const form = new FormData();
+    form.append("name", userInfo.name);
+    if (userInfo.profilePictureToChange) {
+      form.append("profilePicture", userInfo.profilePictureToChange);
+    }
+    if (showChangePassword) {
+      if (userInfo.password.length !== 0 &&
+        userInfo.password === confirmPassword
+        && userInfo.otp) {
+        form.append("password", userInfo.password);
+        form.append("otp", userInfo.otp);
+      } else {
+        alert("Vui lòng kiểm tra lại OTP và mật khẩu !")
+        return;
+      }
+    }
+    try {
+      const res = await dispatch(updateUserInfo(form)).unwrap();
+      if (res.status === 202)
+        alert("Cập nhật thông tin thành công !")
+    } catch (err) {
+      alert("Vui lòng kiểm tra lại các thông tin cho chính xác !")
+    }
+  };
+
+  const handleSelectImage = (e) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        setUserInfo({ ...userInfo, profilePicture: reader.result, profilePictureToChange: e.target.files[0] });
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
+
+  const notifySendOTP = () =>
+    toast.info("Mã OTP đã được gửi về email của bạn !", settings);
+
+  const sendOTPToEmail = async (e) => {
+    e.preventDefault();
+    setDisabled(true);
+    e.target.disabled = true;
+    const resp = await dispatch(sendOtpToEmail({ email: userInfo.email })).unwrap();
+    notifySendOTP();
+    setTimeout(() => {
+      e.target.disabled = false;
+      setDisabled(false);
+    }, 60000);
+  };
   return (
     <Layout>
       <div className="account">
@@ -98,11 +196,23 @@ const Account = () => {
                       Thông tin cá nhân
                     </h3>
                     <div className="account-wrapper__information__body">
-                      <form action="">
+                      <form onSubmit={(e) => handleUpdateUserInfo(e)}>
                         <div className="form-header">
                           <div className="form-header__img">
-                            <img src={user?.profilePicture} alt="" />
-                            <span className="form-header__img-edit">
+                            <img src={userInfo.profilePicture || noImage} alt="" />
+
+                            <label
+                              htmlFor="img"
+                              className="form-header__img-edit"
+                            >
+                              <input
+                                type="file"
+                                id="img"
+                                name="img-btn"
+                                accept="image/*"
+                                className="form-header__img-edit-btn"
+                                onChange={(e) => handleSelectImage(e)}
+                              />
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 width="24"
@@ -117,10 +227,10 @@ const Account = () => {
                                   d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"
                                 />
                               </svg>
-                            </span>
+                            </label>
                           </div>
                           <div className="form-header__username">
-                            <h5>Tài khoản: {user?.email}</h5>
+                            <h5>Tài khoản: {userInfo.email}</h5>
                           </div>
                         </div>
                         {/* <div className="form-control"> */}
@@ -128,8 +238,17 @@ const Account = () => {
                           <TextField
                             label="Họ và tên"
                             variant="outlined"
-                            value={user?.name}
+                            value={userInfo.name}
+                            onChange={(e) =>
+                              setUserInfo({ ...userInfo, name: e.target.value })
+                            }
+                            onBlur={(e) => checkNameValidation(e.target.value)}
                           />
+                          {nameValid ? null : (
+                            <div className="error-input">
+                              Họ tên cần được điền !
+                            </div>
+                          )}
                         </FormControl>
                         <FormControl
                           fullWidth
@@ -154,7 +273,22 @@ const Account = () => {
                                 type="password"
                                 label="Mật khẩu mới"
                                 variant="outlined"
+                                value={userInfo.password}
+                                onChange={(e) =>
+                                  setUserInfo({
+                                    ...userInfo,
+                                    password: e.target.value,
+                                  })
+                                }
+                                onBlur={(e) =>
+                                  checkPasswordValidation(e.target.value)
+                                }
                               />
+                              {passwordValid ? null : (
+                                <div className="error-input">
+                                  Mật khẩu hợp lệ chỉ chứa từ 8-50 ký tự!
+                                </div>
+                              )}
                             </FormControl>
                             <FormControl
                               fullWidth
@@ -164,12 +298,27 @@ const Account = () => {
                                 type="password"
                                 label="Xác nhận mật khẩu"
                                 variant="outlined"
+                                value={confirmPassword}
+                                onChange={(e) =>
+                                  setConfirmPassword(e.target.value)
+                                }
                               />
                             </FormControl>
                             <FormControl>
                               <div style={{ display: "flex" }}>
-                                <TextField label="Mã OTP" variant="outlined" />
-                                <button className="btn btn-otp">Lấy mã</button>
+                                <TextField label="Mã OTP" variant="outlined" value={userInfo.otp}
+                                  onChange={(e) => setUserInfo({ ...userInfo, otp: e.target.value })} />
+                                <button
+                                  className={
+                                    isDisabled
+                                      ? `btn btn-otp btn-otp--disbaled`
+                                      : `btn btn-otp `
+                                  }
+                                  onClick={(e) => sendOTPToEmail(e)}
+                                  disabled={isDisabled}
+                                >
+                                  Lấy mã
+                                </button>
                               </div>
                             </FormControl>
                           </>
@@ -383,9 +532,9 @@ const Account = () => {
                                     style={
                                       address.isDefault
                                         ? {
-                                            cursor: "default",
-                                            visibility: "hidden",
-                                          }
+                                          cursor: "default",
+                                          visibility: "hidden",
+                                        }
                                         : null
                                     }
                                     onClick={() =>
@@ -398,9 +547,9 @@ const Account = () => {
                                     style={
                                       address.isDefault
                                         ? {
-                                            cursor: "default",
-                                            visibility: "hidden",
-                                          }
+                                          cursor: "default",
+                                          visibility: "hidden",
+                                        }
                                         : null
                                     }
                                     className="address-item__setup address-item__setup--delete"
@@ -429,6 +578,7 @@ const Account = () => {
           </div>
         </div>
       </div>
+      <ToastContainer />
     </Layout>
   );
 };

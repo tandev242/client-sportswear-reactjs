@@ -91,7 +91,13 @@ const NavbarTop = () => {
         <div className="navbar-top__user-info navbar-top__user-info--define">
           {auth.authenticate ? (
             <NavLink to="/account">
-              <img src={auth.user.profilePicture} alt="" />
+              <img
+                src={
+                  auth.user.profilePicture ||
+                  require("../../../assets/images/account/images.png").default
+                }
+                alt=""
+              />
             </NavLink>
           ) : (
             <svg

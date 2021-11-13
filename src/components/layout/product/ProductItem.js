@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Lazyload from 'react-lazyload'
+import Lazyload from "react-lazyload";
 
 const ProductItem = ({ product }) => {
   const checkNew = (createdAt) => {
@@ -52,8 +52,9 @@ const ProductItem = ({ product }) => {
         {checkNew(product.createdAt) ? (
           <span className="label-new">New</span>
         ) : null}
-
-        <span className="label-discount">{product.discountPercent}%</span>
+        {product.discountPercent > 0 ? (
+          <span className="label-discount">{product.discountPercent}%</span>
+        ) : null}
       </Link>
     </Lazyload>
   );

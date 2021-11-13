@@ -8,5 +8,5 @@ export const emailSchema = yub.object().shape({
 });
 
 export const passwordSchema = yub.object().shape({
-  password: yub.string().min(6).max(50).required(),
+  password: yub.string().min(8).max(50).required(),
 });

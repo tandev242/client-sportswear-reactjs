@@ -66,6 +66,7 @@
       & img {
         width: 34px;
         height: 34px;
+        object-fit: cover;
         border-radius: 50%;
       }
       &-box {
@@ -174,6 +175,8 @@
         }
         & .body {
           padding: 8px 0;
+          max-height: 280px;
+          overflow-y: auto;
           & .item {
             padding: 8px;
             display: flex;

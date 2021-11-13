@@ -2,18 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 const OrderItem = (props) => {
   const orders = props.orders;
+  console.log(orders);
 
+  const lastOrderStatus = (order) => {
+    var orderStatusObj = null;
+    order.orderStatus.forEach((status) => {
+      if (status.isCompleted) {
+        orderStatusObj = status;
+      }
+    });
+    return orderStatusObj;
+  };
   const orderStatus = (order) => {
-    const lastOrderStatus = () => {
-      var orderStatusObj = null
-      order.orderStatus.forEach(status => {
-        if (status.isCompleted) {
-          orderStatusObj = status
-        }
-      })
-      return orderStatusObj
-    }
-    const status = lastOrderStatus();
+    const status = lastOrderStatus(order);
     switch (status.type) {
       case "ordered":
         return "Đã đặt hàng";
@@ -23,9 +24,11 @@ const OrderItem = (props) => {
         return "Đang giao hàng";
       case "delivered":
         return "Giao hàng thành công";
-      default: return ""
+      default:
+        return "";
     }
   };
+
   return (
     <>
       {orders.map((order) => (
@@ -41,7 +44,10 @@ const OrderItem = (props) => {
             <ul className="order-item__body-list-item">
               {order.items.map((item) => (
                 <li className="item">
-                  <Link to={`/product/${item.productId.slug}`} className="item-link">
+                  <Link
+                    to={`/product/${item.productId.slug}`}
+                    className="item-link"
+                  >
                     <div className="photo">
                       <img
                         src={item.productId.productPictures[0].img}
@@ -56,12 +62,6 @@ const OrderItem = (props) => {
                       </p>
                     </div>
                     <div className="price">
-                      <p className="price__old">
-                        ₫
-                        {new Intl.NumberFormat("de-DE").format(
-                          item.productId.price * item.purchaseQty
-                        )}
-                      </p>
                       <p className="price__current">
                         ₫
                         {new Intl.NumberFormat("de-DE").format(
@@ -99,9 +99,11 @@ const OrderItem = (props) => {
               </p>
             </div>
             {/* Button để hủy đơn nếu trong quá trình vận chuyển muốn hoàn lại */}
-            {/* <div className="button">
-                          <div className="btn btn-cancel">Hủy</div>
-                        </div> */}
+            {lastOrderStatus(order).type === "ordered" && (
+              <div className="button">
+                <div className="btn btn-cancel">Hủy</div>
+              </div>
+            )}
           </div>
         </div>
       ))}

@@ -7,45 +7,37 @@ import { login, loginByGoogle } from "../features/auth/authSlice";
 import { emailSchema, passwordSchema } from "../validation/authValidations";
 
 const Login = () => {
-  const handleLoginByGoogle = async (googleData) => {
-    await dispatch(loginByGoogle({ token: googleData.tokenId }));
-  };
-
-  const auth = useSelector((state) => state.auth);
-
-  const dispatch = useDispatch();
   const [passwordShown, setPasswordShown] = useState(false);
-
-  const togglePasswordVisibility = () => {
-    setPasswordShown(passwordShown ? false : true);
-  };
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const { token } = useSelector(state => state.auth)
-  // console.log(token)
-
-  //Validate email use Yub
   const [emailValid, setEmailValid] = useState(true);
+  const [passwordValid, setPasswordValid] = useState(true);
+
+  const dispatch = useDispatch();
+
   const checkEmailValidation = (value) => {
     emailSchema
       .validate({ email: value })
       .then(() => setEmailValid(true))
       .catch(() => setEmailValid(false));
   };
-
   //Validate password use Yub
-  const [passwordValid, setPasswordValid] = useState(true);
   const checkPasswordValidation = (value) => {
     passwordSchema
       .validate({ password: value })
       .then(() => setPasswordValid(true))
       .catch(() => setPasswordValid(false));
   };
+  const togglePasswordVisibility = () => {
+    setPasswordShown(passwordShown ? false : true);
+  };
+
+  const handleLoginByGoogle = async (googleData) => {
+    await dispatch(loginByGoogle({ token: googleData.tokenId }));
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
-
     if (
       emailValid === false ||
       email === "" ||
@@ -55,9 +47,9 @@ const Login = () => {
       alert("Vui lòng kiểm tra thông tin đăng nhập");
     } else {
       const user = { email, password };
-      await dispatch(login(user));
-
-      if (auth.error) {
+      try {
+        await dispatch(login(user)).unwrap();
+      } catch (e) {
         alert("Thông tin đăng nhập không đúng!");
       }
     }
