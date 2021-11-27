@@ -288,29 +288,184 @@
     }
   }
   & .description {
-    &-header {
-      display: flex;
-      align-items: center;
-      &__title {
-        padding: 8px 16px;
-        @include text-title;
-        border: 2px solid #e6ae47;
-        margin-right: 12px;
-        cursor: pointer;
-        &:hover {
-          background: #eecf95;
-        }
-      }
-      &__separate {
-        flex: 1;
-        height: 2px;
-        background-color: #e6ae47;
-      }
-    }
+    @include section-detail-header;
     &-body {
       padding: 12px;
       & p {
         font-size: 1.1rem;
+      }
+    }
+  }
+
+  & .comments {
+    @include section-detail-header;
+    &-body {
+      padding: 12px;
+      border-radius: 4px;
+
+      & p {
+        font-size: 1.1rem;
+      }
+      &__rating {
+        display: flex;
+        align-items: center;
+        font-size: 1.2rem;
+        & .label {
+          font-size: 1.2rem;
+          color: $second-text;
+          font-weight: 600;
+        }
+        & .rating {
+          width: 140px;
+          & input {
+            display: none;
+          }
+          & label {
+            color: #999;
+            margin: 5px 0;
+            padding-right: 5px;
+            cursor: pointer;
+            float: right;
+          }
+          & input:not(:checked) ~ label:hover,
+          & input:not(:checked) ~ label:hover ~ label {
+            color: $red-o;
+          }
+          & input:checked ~ label {
+            color: $red-o;
+          }
+        }
+      }
+      &__form {
+        margin-top: 10px;
+        & .form-input {
+          position: relative;
+          display: flex;
+          & img {
+            height: 40px;
+            width: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+          &__content {
+            margin-left: 10px;
+          }
+          &__label {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: rgb(138, 88, 88);
+          }
+          &__text {
+            min-width: 400px;
+            max-width: 400px;
+            min-height: 90px;
+            max-height: 90px;
+            padding: 8px;
+            font-size: 1.1rem;
+            line-height: 1.5;
+            overflow-y: auto;
+            border-radius: 6px;
+            background-color: #f3f3f3;
+            &:focus {
+              outline: 1px solid rgb(138, 88, 88);
+            }
+          }
+          &__submit {
+            background-color: $color2;
+            color: $white;
+            transition: linear all 0.2s;
+            cursor: pointer;
+            padding: 8px 10px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 50px;
+            position: absolute;
+            left: 29%;
+            top: 90%;
+            &:hover {
+              opacity: 0.8;
+            }
+          }
+        }
+      }
+      &__list {
+        margin-top: 100px;
+        border: 1px solid #ccc;
+        box-shadow: 0px 1px 5px #ccc;
+        padding: 12px;
+        border-radius: 4px;
+
+        &-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          margin-bottom: 20px;
+          padding-left: 12px;
+          & h3 {
+            font-size: 1.5rem;
+          }
+        }
+        &-body {
+          padding: 12px;
+
+          & .comment-item {
+            padding: 12px;
+            display: flex;
+            box-shadow: 0px 1px 5px #ccc;
+            border: 1px solid #ccc;
+            background-color: #f5fffc;
+            border-radius: 4px;
+            margin-bottom: 12px;
+            & .info {
+              display: flex;
+              margin-right: 24px;
+              width: 200px;
+              & img {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                object-fit: cover;
+              }
+              & .info-name {
+                margin-left: 4px;
+                margin-top: 8px;
+              }
+            }
+            & .content {
+              flex: 1;
+              padding-right: 30px;
+              & .rating {
+                & i {
+                  color: $red-o;
+                  margin: 5px 0;
+                  padding-right: 5px;
+                  cursor: pointer;
+                }
+                & i:nth-child(5) {
+                  padding-right: 0;
+                }
+                & .star {
+                  position: relative;
+                }
+                & .star-1 {
+                  position: absolute;
+                  top: 0;
+                  left: 0;
+                  width: 84px;
+                  overflow: hidden;
+                }
+              }
+              &-body {
+                min-height: 28px;
+              }
+            }
+          }
+          & .create-date {
+            width: 180px;
+            font-size: 1rem;
+            padding-left: 12px;
+          }
+        }
       }
     }
   }

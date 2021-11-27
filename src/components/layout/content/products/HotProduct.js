@@ -15,19 +15,18 @@ const HotProduct = () => {
 
   const product = useSelector((state) => state.product);
 
-  const currentDate = new Date();
-
-  // const hotProduct = product.products.filter((product) => {
-  //   return currentDate - new Date(product?.createdAt) < 864000000;
-  // });
-  const hotProduct = product.products;
-
+  // get 10 product lastest
+  const hotProducts = [...product.hotProducts].sort((a, b) => {
+    var dateA = new Date(a.createdAt).getTime();
+    var dateB = new Date(b.createdAt).getTime();
+    return dateA < dateB ? 1 : -1; // ? -1 : 1 for ascending/increasing order
+  }).slice(0, 10);
   return (
     <div className="hot-product mgb-45">
-      <h3 className="hot-product__heading ">Sản phẩm hot</h3>
+      <h3 className="hot-product__heading ">Sản phẩm mới</h3>
 
       <Slider {...settings}>
-        {hotProduct.map((product) => {
+        {hotProducts.map((product) => {
           return (
             <div className="col-2-4">
               <ProductItem product={product} />

@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
+
 const OrderItem = (props) => {
   const orders = props.orders;
-  console.log(orders);
 
   const lastOrderStatus = (order) => {
     var orderStatusObj = null;

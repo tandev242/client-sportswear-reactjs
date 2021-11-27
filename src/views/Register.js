@@ -34,7 +34,6 @@ const Register = () => {
       .validate({ name: value })
       .then(() => setNameValid(true))
       .catch(() => setNameValid(false));
-    console.log(nameValid);
   };
   const [emailValid, setEmailValid] = useState(true);
   const checkEmailValidation = (value) => {
@@ -71,7 +70,6 @@ const Register = () => {
     } else if (confirmPass !== userObject.password) {
       alert("Xác nhận mật khẩu không trùng khớp !");
     } else {
-      console.log(userObject);
       dispatch(register(userObject));
     }
   };

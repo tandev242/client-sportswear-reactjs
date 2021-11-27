@@ -21,5 +21,10 @@ const productAPI = {
     const url = `/product/searchByProductName`;
     return axios.post(url, searchText);
   },
+
+  addProductReview: (comment) => {
+    const url = `/product/addProductReview`;
+    return axios.post(url, comment);
+  },
 };
 export default productAPI;

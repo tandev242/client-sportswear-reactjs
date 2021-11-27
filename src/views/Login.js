@@ -54,7 +54,6 @@ const Login = () => {
       }
     }
   };
-  // console.log(auth?.user?._id);
   return (
     <Layout>
       {/* <LoginForm  /> */}

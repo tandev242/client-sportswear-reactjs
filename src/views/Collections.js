@@ -64,7 +64,7 @@ const Collections = () => {
 
     const filteredProducts = () => {
         // region sort by type 
-        const productArr = [...product.products].sort((a, b) => a.price - b.price);
+        const productArr = [...product.products].sort((a, b) => (a.price - a.price * a.discountPercent / 100) - (b.price - b.price * b.discountPercent / 100));
         if (filter.type === 'price-descending') {
             productArr.reverse();
         } else if (filter.type === 'created-descending' || filter.type === 'created-ascending') {

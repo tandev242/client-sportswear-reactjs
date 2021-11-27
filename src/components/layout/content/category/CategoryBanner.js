@@ -1,31 +1,35 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const CategoryBanner = () => {
+const CategoryBanner = ({ category }) => {
   const CategoryMainBanners = [
     {
       img: require("../../../../assets/images/banner/index_banner_1.jpg")
         .default,
       title: "Giày cỏ nhân tạo (Đế TF)",
       description: "Giày dành cho mặt sân cỏ nhân tạo sân 5-7 người",
+      link: "/collections/category/Giay-co-nhan-tao-wQliTMGa0",
     },
     {
       img: require("../../../../assets/images/banner/index_banner_2.jpg")
         .default,
       title: "Giày cỏ tự nhiên(Đế FG, AG, SG)",
       description: "Giày dành cho mặt sân tự nhiên 11 người",
+      link: "/collections/category/Giay-co-tu-nhien-JR_L6B_lO",
     },
     {
       img: require("../../../../assets/images/banner/index_banner_3.jpg")
         .default,
       title: "Giày Futsal (Đế IC)",
       description: "Giày dành cho mặt sân xi măng và sân futsal trong nhà",
+      link: "/collections/category/Giay-futsal-cwPqmV5T0",
     },
     {
       img: require("../../../../assets/images/banner/index_banner_4.jpg")
         .default,
       title: "Giày Sale Off (50 - 70% OFF)",
       description: "Giày đá banh đang sale off đến 70%",
+      link: "/collections/category/Giay-co-nhan-tao-wQliTMGa0",
     },
   ];
 
@@ -46,6 +50,7 @@ const CategoryBanner = () => {
       title: "Phụ kiện thể thao",
     },
   ];
+
   return (
     <div className="banner mgb-45">
       <h3 className="banner__heading">Bạn đang tìm</h3>
@@ -53,7 +58,7 @@ const CategoryBanner = () => {
         {CategoryMainBanners.map((item) => {
           return (
             <div className="col-3 ">
-              <Link to="" className="banner-3 mgb-30">
+              <Link to={item.link} className="banner-3 mgb-30">
                 <img className="banner-3__img" src={item.img} alt="" />
                 <div className="banner-3__body">
                   <h4 className="banner-3__body-title">{item.title}</h4>

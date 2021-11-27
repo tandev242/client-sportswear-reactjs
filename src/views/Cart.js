@@ -60,9 +60,7 @@ const Cart = () => {
   // Handle selected items which customer want to payment
   const handleSelected = (e, item) => {
     const { name, checked } = e.target;
-    console.log(name, checked);
     const isChecked = e.target.checked; //false
-    console.log(isChecked);
     if (isChecked) {
       setSelected([...selected, item]);
     } else {

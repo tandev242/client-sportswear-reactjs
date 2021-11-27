@@ -72,7 +72,6 @@ const Checkout = (props) => {
       items: getItemsToPay(),
     };
     if (paymentType === "cod") {
-      console.log(order);
       const res = await dispatch(addOrder(order)).unwrap();
       if (res.status === 201) {
         alert("Đặt hàng thành công!");
@@ -214,8 +213,8 @@ const Checkout = (props) => {
                                 {new Intl.NumberFormat("de-DE").format(
                                   (orderItem.product.price -
                                     (orderItem.product.discountPercent / 100) *
-                                    orderItem.product.price) *
-                                  orderItem.quantity
+                                      orderItem.product.price) *
+                                    orderItem.quantity
                                 )}
                               </p>
                             </div>

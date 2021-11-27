@@ -7,7 +7,6 @@ import { Stack } from "@material-ui/core";
 import Loading from "./loading/Loading";
 export default function Layout(props) {
   const auth = useSelector((state) => state.auth);
-  const product = useSelector((state) => state.product);
   const cart = useSelector((state) => state.cart);
   const user = useSelector((state) => state.user);
   const deliveryInfo = useSelector((state) => state.deliveryInfo);
@@ -16,11 +15,10 @@ export default function Layout(props) {
   return (
     <div>
       {auth.loading ||
-      product.loading ||
-      cart.loading ||
-      deliveryInfo.loading ||
-      user.loading ||
-      order.loading ? (
+        cart.loading ||
+        deliveryInfo.loading ||
+        user.loading ||
+        order.loading ? (
         <Stack
           sx={{
             width: "100%",

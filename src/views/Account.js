@@ -40,7 +40,7 @@ const Account = () => {
     profilePictureToChange: null,
     password: "",
     email: "",
-    otp: ""
+    otp: "",
   });
 
   useEffect(() => {
@@ -49,10 +49,10 @@ const Account = () => {
         ...userInfo,
         name: user.name,
         profilePicture: user.profilePicture,
-        email: user.email
-      })
+        email: user.email,
+      });
     }
-  }, [user])
+  }, [user]);
 
   const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordValid, setPasswordValid] = useState(true);
@@ -63,7 +63,6 @@ const Account = () => {
       .validate({ name: value })
       .then(() => setNameValid(true))
       .catch(() => setNameValid(false));
-    console.log(nameValid);
   };
 
   const checkPasswordValidation = (value) => {
@@ -89,7 +88,6 @@ const Account = () => {
   };
 
   const handleDeleteAddress = (addressId) => {
-    console.log(addressId);
     if (
       window.confirm("Bạn có chắc muốn xóa thông tin này ra khỏi danh sách ?")
     ) {
@@ -140,22 +138,23 @@ const Account = () => {
       form.append("profilePicture", userInfo.profilePictureToChange);
     }
     if (showChangePassword) {
-      if (userInfo.password.length !== 0 &&
-        userInfo.password === confirmPassword
-        && userInfo.otp) {
+      if (
+        userInfo.password.length !== 0 &&
+        userInfo.password === confirmPassword &&
+        userInfo.otp
+      ) {
         form.append("password", userInfo.password);
         form.append("otp", userInfo.otp);
       } else {
-        alert("Vui lòng kiểm tra lại OTP và mật khẩu !")
+        alert("Vui lòng kiểm tra lại OTP và mật khẩu !");
         return;
       }
     }
     try {
       const res = await dispatch(updateUserInfo(form)).unwrap();
-      if (res.status === 202)
-        alert("Cập nhật thông tin thành công !")
+      if (res.status === 202) alert("Cập nhật thông tin thành công !");
     } catch (err) {
-      alert("Vui lòng kiểm tra lại các thông tin cho chính xác !")
+      alert("Vui lòng kiểm tra lại các thông tin cho chính xác !");
     }
   };
 
@@ -163,7 +162,11 @@ const Account = () => {
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
-        setUserInfo({ ...userInfo, profilePicture: reader.result, profilePictureToChange: e.target.files[0] });
+        setUserInfo({
+          ...userInfo,
+          profilePicture: reader.result,
+          profilePictureToChange: e.target.files[0],
+        });
       }
     };
     reader.readAsDataURL(e.target.files[0]);
@@ -199,7 +202,10 @@ const Account = () => {
                       <form onSubmit={(e) => handleUpdateUserInfo(e)}>
                         <div className="form-header">
                           <div className="form-header__img">
-                            <img src={userInfo.profilePicture || noImage} alt="" />
+                            <img
+                              src={userInfo.profilePicture || noImage}
+                              alt=""
+                            />
 
                             <label
                               htmlFor="img"
@@ -306,8 +312,17 @@ const Account = () => {
                             </FormControl>
                             <FormControl>
                               <div style={{ display: "flex" }}>
-                                <TextField label="Mã OTP" variant="outlined" value={userInfo.otp}
-                                  onChange={(e) => setUserInfo({ ...userInfo, otp: e.target.value })} />
+                                <TextField
+                                  label="Mã OTP"
+                                  variant="outlined"
+                                  value={userInfo.otp}
+                                  onChange={(e) =>
+                                    setUserInfo({
+                                      ...userInfo,
+                                      otp: e.target.value,
+                                    })
+                                  }
+                                />
                                 <button
                                   className={
                                     isDisabled
@@ -532,9 +547,9 @@ const Account = () => {
                                     style={
                                       address.isDefault
                                         ? {
-                                          cursor: "default",
-                                          visibility: "hidden",
-                                        }
+                                            cursor: "default",
+                                            visibility: "hidden",
+                                          }
                                         : null
                                     }
                                     onClick={() =>
@@ -547,9 +562,9 @@ const Account = () => {
                                     style={
                                       address.isDefault
                                         ? {
-                                          cursor: "default",
-                                          visibility: "hidden",
-                                        }
+                                            cursor: "default",
+                                            visibility: "hidden",
+                                          }
                                         : null
                                     }
                                     className="address-item__setup address-item__setup--delete"

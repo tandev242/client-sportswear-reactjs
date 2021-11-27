@@ -34,10 +34,15 @@ export const getProductsBySearchText = createAsyncThunk(
   }
 );
 
-export const getSizes = createAsyncThunk(
-  "product/getSizes",
-  async () => {
-    const response = await productAPI.getSizes();
+export const getSizes = createAsyncThunk("product/getSizes", async () => {
+  const response = await productAPI.getSizes();
+  return response;
+});
+
+export const addProductReview = createAsyncThunk(
+  "/product/addProductReview",
+  async (comment) => {
+    const response = await productAPI.addProductReview(comment);
     return response;
   }
 );
@@ -45,8 +50,8 @@ export const getSizes = createAsyncThunk(
 export const productSlice = createSlice({
   name: "product",
   initialState: {
-    product: {},
     title: "",
+    hotProducts: [],
     products: [],
     sizes: [],
     loading: false,
@@ -61,19 +66,17 @@ export const productSlice = createSlice({
       state.error = action.error;
     },
     [getProducts.fulfilled]: (state, action) => {
+      state.hotProducts = action.payload.data.products;
       state.loading = false;
-      state.products = action.payload.data.products;
     },
     [getProductBySlug.pending]: (state) => {
       state.loading = true;
     },
     [getProductBySlug.rejected]: (state, action) => {
       state.loading = false;
-      state.error = action.error;
     },
     [getProductBySlug.fulfilled]: (state, action) => {
       state.loading = false;
-      state.product = action.payload.data.product;
     },
 
     // Get product by type (category/brand) and slug
@@ -111,6 +114,13 @@ export const productSlice = createSlice({
     [getSizes.fulfilled]: (state, action) => {
       state.loading = false;
       state.sizes = action.payload.data.sizes;
+    },
+    [addProductReview.loading]: (state) => {
+      state.loading = true;
+    },
+    [addProductReview.rejected]: (state, action) => {
+      state.loading = false;
+      state.error = action.error;
     },
   },
 });

@@ -1,41 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const BrandBanners = [
-  {
-    name: "Nike",
-    img: require("../../../../assets/images/banner/brand_banner_1.jpg").default,
-  },
-  {
-    name: "Adidas",
-    img: require("../../../../assets/images/banner/brand_banner_2.jpg").default,
-  },
-  {
-    name: "Puma",
-    img: require("../../../../assets/images/banner/brand_banner_3.jpg").default,
-  },
-  {
-    name: "Asics",
-    img: require("../../../../assets/images/banner/brand_banner_5.jpg").default,
-  },
-  {
-    name: "Minuzo",
-    img: require("../../../../assets/images/banner/brand_banner_4.jpg").default,
-  },
-  {
-    name: "Kamito",
-    img: require("../../../../assets/images/banner/brand_banner_6.jpg").default,
-  },
-];
-const BrandBanner = () => {
+const BrandBanner = ({ brand }) => {
+  const { brands } = brand;
+
   return (
     <div className="banner mgb-45">
       <h3 className="banner__heading">Thương hiệu</h3>
       <div className="row">
-        {BrandBanners.map((item) => (
-          <div className="col-4">
-            <Link to="" className="banner-4 mgb-30">
-              <img src={item.img} alt="" className="banner-4__img" />
+        {brands.map((item) => (
+          <div className="col-4" key={item._id}>
+            <Link
+              to={`/collections/brand/${item.slug}`}
+              className="banner-4 mgb-30"
+            >
+              <img src={item.brandImage} alt="" className="banner-4__img" />
               <div className="banner-4__title">
                 <span className="banner-4__title-text">
                   Giày đá bóng {item.name}
