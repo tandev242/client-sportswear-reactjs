@@ -49,9 +49,9 @@ const ProductItem = ({ product }) => {
             </p>
           </div>
         </div>
-        {/* {checkNew(product.createdAt) ? ( */}
-        <span className="label-new">New</span>
-        {/* ) : null} */}
+        {checkNew(product.createdAt) ? (
+          <span className="label-new">New</span>
+        ) : null}
         {product.discountPercent > 0 ? (
           <span className="label-discount">{product.discountPercent}%</span>
         ) : null}
