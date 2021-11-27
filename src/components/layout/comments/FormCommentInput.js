@@ -4,7 +4,6 @@ import { addProductReview } from "../../../features/product/productSlice";
 import { useDispatch } from "react-redux";
 
 const FormCommentInput = ({ rating, productId, isAddedComment, setIsAddedComment }) => {
-  console.log(isAddedComment)
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const [review, setReview] = useState({
@@ -25,7 +24,6 @@ const FormCommentInput = ({ rating, productId, isAddedComment, setIsAddedComment
         alert("Vui lòng đánh giá và nhận xét sản phẩm trước khi gửi!");
       else {
         try {
-          console.log(review)
           const res = await dispatch(addProductReview(review)).unwrap();
           if (res.status === 202) {
             alert("Gửi đánh giá thành công!");

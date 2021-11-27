@@ -435,13 +435,12 @@
               flex: 1;
               padding-right: 30px;
               & .rating {
-                & i {
+                & path {
                   color: $red-o;
                   margin: 5px 0;
                   padding-right: 5px;
-                  cursor: pointer;
                 }
-                & i:nth-child(5) {
+                & svg:nth-child(5) {
                   padding-right: 0;
                 }
                 & .star {
