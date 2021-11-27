@@ -19,6 +19,12 @@ export const addOrder = createAsyncThunk("order/addOrder", async (order) => {
   return response;
 });
 
+export const cancelOrder = createAsyncThunk("order/cancelOrder", async (payload, thunkAPI) => {
+  const response = await orderAPI.cancelOrder(payload);
+  await thunkAPI.dispatch(getAllOrders());
+  return response;
+});
+
 export const paymentWithMomo = createAsyncThunk(
   "order/paymentWithMomo",
   async (order) => {

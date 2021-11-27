@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const OrderItem = (props) => {
-  const orders = props.orders;
+  const { orders, handleCancelOrder } = props;
 
   const lastOrderStatus = (order) => {
     var orderStatusObj = null;
@@ -11,23 +11,26 @@ const OrderItem = (props) => {
         orderStatusObj = status;
       }
     });
-    return orderStatusObj;
+    return orderStatusObj.type;
   };
   const orderStatus = (order) => {
-    const status = lastOrderStatus(order);
-    switch (status.type) {
+    const status = order.paymentStatus === "cancelled" ? "cancelled" : lastOrderStatus(order);
+    switch (status) {
       case "ordered":
-        return "Đã đặt hàng";
+        return { "status": "Đã đặt hàng", "color": "blue" };
       case "packed":
-        return "Đã đóng gói";
+        return { "status": "Đã đóng gói", "color": "orange" };
       case "shipped":
-        return "Đang giao hàng";
+        return { "status": "Đang giao hàng", "color": "orange" };
       case "delivered":
-        return "Giao hàng thành công";
+        return { "status": "Giao hàng thành công", "color": "green" };
+      case "cancelled":
+        return { "status": "Đã hủy", "color": "red" };
       default:
         return "";
     }
   };
+
 
   return (
     <>
@@ -37,7 +40,7 @@ const OrderItem = (props) => {
             <h4 className="order-item__heading-id">
               Mã đơn hàng : {order._id}
             </h4>
-            <h4 className="order-item__heading-status">{orderStatus(order)}</h4>
+            <h4 className="order-item__heading-status" style={{ color: orderStatus(order).color }}>{orderStatus(order).status}</h4>
           </div>
           <div className="order-item__body">
             {/* Đây là danh sách các sản phẩm trong đơn hàng đó */}
@@ -99,9 +102,9 @@ const OrderItem = (props) => {
               </p>
             </div>
             {/* Button để hủy đơn nếu trong quá trình vận chuyển muốn hoàn lại */}
-            {lastOrderStatus(order).type === "ordered" && (
+            {lastOrderStatus(order) === "ordered" && order.paymentStatus != "cancelled" && (
               <div className="button">
-                <div className="btn btn-cancel">Hủy</div>
+                <div className="btn btn-cancel" onClick={() => handleCancelOrder(order)}>Hủy</div>
               </div>
             )}
           </div>

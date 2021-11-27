@@ -5,6 +5,10 @@ const orderAPI = {
     const url = "/order/add";
     return axios.post(url, order);
   },
+  cancelOrder: (payload) => {
+    const url = "/order/updateType";
+    return axios.post(url, payload);
+  },
   getOrderById: (orderId) => {
     const url = "/order/getOrder";
     return axios.post(url, orderId);

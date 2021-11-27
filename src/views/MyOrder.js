@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Layout from "../components/layout/Layout";
 import OrderItem from "../components/layout/order/OrderItem";
-import { getAllOrders } from "../features/order/orderSlice";
+import { cancelOrder, getAllOrders } from "../features/order/orderSlice";
 
 const MyOrder = () => {
   const { orders } = useSelector((state) => state.order);
@@ -21,17 +21,39 @@ const MyOrder = () => {
         orderStatusObj = status;
       }
     });
-    return orderStatusObj;
+    return orderStatusObj.type;
   };
 
   const filteredOrders = (arr) => {
     if (status === "all") return arr;
+    if (status === "cancelled") {
+      return arr.filter((item) => item.paymentStatus === "cancelled");
+    }
     const filteredArr = arr.filter((item) => {
-      if (lastOrderStatus(item).type === status) return true;
+      if (lastOrderStatus(item) === status && item.paymentStatus != "cancelled") return true;
       return false;
     });
     return filteredArr;
   };
+
+  const handleCancelOrder = async (order) => {
+    if (window.confirm("Bạn có chắc muốn hủy đơn hàng này !")) {
+      const payload = {
+        orderId: order._id,
+        type: "cancelled"
+      }
+      try {
+        const res = await dispatch(cancelOrder(payload));
+        if (res.status === 202) {
+          alert("Bạn đã hủy đơn hàng thành công !");
+        } else {
+          alert("Không thể hủy đơn hàng");
+        }
+      } catch (err) {
+        alert("Đã có lỗi xảy ra");
+      }
+    }
+  }
 
   return (
     <Layout>
@@ -54,13 +76,15 @@ const MyOrder = () => {
                       <option value="packed">Đã đóng gói</option>
                       <option value="shipped">Đang giao hàng</option>
                       <option value="delivered">Giao hàng thành công</option>
+                      <option value="cancelled">Đã hủy</option>
+
                     </select>
                   </div>
                 </div>
                 <div className="account-wrapper__order__body">
                   {/* 1 đơn hàng trong list các đơn hàng */}
                   {orders.length > 0 ? (
-                    <OrderItem orders={filteredOrders(orders)} />
+                    <OrderItem orders={filteredOrders(orders)} handleCancelOrder={handleCancelOrder} />
                   ) : (
                     <h1
                       style={{
