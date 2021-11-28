@@ -3,7 +3,6 @@ import CommentItem from "./CommentItem";
 import FormCommentInput from "./FormCommentInput";
 const Comments = ({ product, isAddedComment, setIsAddedComment }) => {
   const [rating, setRating] = useState(0);
-  console.log(rating);
   return (
     <div className="comments">
       <div className="comments-header">

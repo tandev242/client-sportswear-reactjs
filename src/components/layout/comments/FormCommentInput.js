@@ -29,7 +29,7 @@ const FormCommentInput = ({ rating, productId, isAddedComment, setIsAddedComment
             alert("Gửi đánh giá thành công!");
             setReview({ rating: 0, comment: "", productId: "" });
             setIsAddedComment(!isAddedComment);
-          } else alert("Gửi đánh giá không thành công !");
+          } else alert("Bạn chỉ được đánh giá sản phẩm 1 lần !");
         } catch (e) {
           alert("Gửi đánh giá không thành công");
         }
