@@ -59,7 +59,6 @@ const Cart = () => {
   };
   // Handle selected items which customer want to payment
   const handleSelected = (e, item) => {
-    const { name, checked } = e.target;
     const isChecked = e.target.checked; //false
     if (isChecked) {
       setSelected([...selected, item]);
@@ -216,8 +215,8 @@ const Cart = () => {
                                   {new Intl.NumberFormat("de-DE").format(
                                     (item.product?.price -
                                       (item.product?.discountPercent / 100) *
-                                        item.product?.price) *
-                                      item.quantity
+                                      item.product?.price) *
+                                    item.quantity
                                   )}
                                 </p>
                               </td>
@@ -299,12 +298,6 @@ const Cart = () => {
                       </div>
                       <div className="col-6">
                         <div className="cart-form-btn">
-                          <button
-                            className="btn cart-form-btn__update"
-                            onClick={() => dispatch(getCartItems())}
-                          >
-                            Cập nhập
-                          </button>
                           <button
                             className="btn cart-form-btn__payment"
                             onClick={(e) => handlePayment(e)}

@@ -3,11 +3,16 @@ import { NavLink } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { settings } from "../../toasts/settingToast";
 const NavbarBottom = ({ categories, brands }) => {
-  const notityNews = () =>
+  const notifyNews = () =>
     toast.info("Tính năng này đang được phát triển !", settings);
-  const notityStoreSymtem = () =>
+  const notifyStoreSystem = () =>
     toast.info(
       "Hiện tại tính năng chưa được xây dựng vì chỉ có 1 chi nhánh !",
+      settings
+    );
+  const notifySaleOff = () =>
+    toast.info(
+      "Hiện tại chưa có sản phẩm Sale Off từ 50% đến 80% !",
       settings
     );
   return (
@@ -144,7 +149,7 @@ const NavbarBottom = ({ categories, brands }) => {
             to={`#`}
             className="navbar-bottom__list-item-link"
             title="Tin tức"
-            onClick={notityNews}
+            onClick={notifyNews}
           >
             Tin tức
           </NavLink>
@@ -155,7 +160,7 @@ const NavbarBottom = ({ categories, brands }) => {
             to={`#`}
             className="navbar-bottom__list-item-link"
             title="Hệ thống cửa hàng"
-            onClick={notityStoreSymtem}
+            onClick={notifyStoreSystem}
           >
             Hệ thống cửa hàng
           </NavLink>
@@ -180,9 +185,10 @@ const NavbarBottom = ({ categories, brands }) => {
         </li>
         <li className="navbar-bottom__list-item">
           <NavLink
-            to={``}
+            to={`#`}
             className="navbar-bottom__list-item-link"
             title="SALE OFF"
+            onClick={notifySaleOff}
           >
             Sale off
           </NavLink>

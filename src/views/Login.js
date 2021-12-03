@@ -1,7 +1,7 @@
 import Layout from "../components/layout/Layout";
 import React, { useState } from "react";
 import GoogleLogin from "react-google-login";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { login, loginByGoogle } from "../features/auth/authSlice";
 import { emailSchema, passwordSchema } from "../validation/authValidations";

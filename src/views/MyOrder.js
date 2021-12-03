@@ -30,7 +30,7 @@ const MyOrder = () => {
       return arr.filter((item) => item.paymentStatus === "cancelled");
     }
     const filteredArr = arr.filter((item) => {
-      if (lastOrderStatus(item) === status && item.paymentStatus != "cancelled") return true;
+      if (lastOrderStatus(item) === status && item.paymentStatus !== "cancelled") return true;
       return false;
     });
     return filteredArr;

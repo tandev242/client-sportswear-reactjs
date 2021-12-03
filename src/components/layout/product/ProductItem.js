@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import Lazyload from "react-lazyload";
 
 const ProductItem = ({ product }) => {
   const checkNew = (createdAt) => {
@@ -11,7 +10,6 @@ const ProductItem = ({ product }) => {
   };
 
   return (
-    <Lazyload throttle={200} height={300}>
       <Link
         to={`/product/${product.slug}`}
         className="hot-product__item"
@@ -56,7 +54,6 @@ const ProductItem = ({ product }) => {
           <span className="label-discount">{product.discountPercent}%</span>
         ) : null}
       </Link>
-    </Lazyload>
   );
 };
 

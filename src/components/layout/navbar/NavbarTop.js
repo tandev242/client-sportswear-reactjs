@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { NavLink, useHistory, Redirect } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { logout } from "../../../features/auth/authSlice";
 
 const NavbarTop = () => {

@@ -5,6 +5,8 @@ import NavbarLeft from "../components/layout/navbar/NavbarLeft";
 import ProductItem from "../components/layout/product/ProductItem";
 import { useSelector, useDispatch } from "react-redux";
 import { getProductsBySlug, getProductsBySearchText } from "../features/product/productSlice";
+import InfiniteScroll from 'react-infinite-scroll-component';
+
 const Collections = () => {
     let match = useRouteMatch();
     const { type, slug } = match.params;
@@ -13,6 +15,8 @@ const Collections = () => {
     const { categories } = useSelector((state) => state.category);
     const { brands } = useSelector((state) => state.brand);
     const [filter, setFilter] = useState({ price: [], sizes: [], type: "price-ascending" })
+    const [scrollCount, setScrollCount] = useState(1);
+    const [isScrolling, setIsScrolling] = useState(true);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -40,7 +44,7 @@ const Collections = () => {
 
     const getProductsByPrice = (products) => {
         const productArr = [];
-        filter.price.map(type => {
+        filter.price.forEach(type => {
             const pArr = products.filter(p => {
                 const currentPrice = p.price - (p.discountPercent / 100) * p.price;
                 if (type === "from0to1" && currentPrice > 0 && currentPrice < 1000000)
@@ -62,7 +66,7 @@ const Collections = () => {
         return uniqueArr
     }
 
-    const filteredProducts = () => {
+    const getFilteredProducts = () => {
         // region sort by type 
         const productArr = [...product.products].sort((a, b) => (a.price - a.price * a.discountPercent / 100) - (b.price - b.price * b.discountPercent / 100));
         if (filter.type === 'price-descending') {
@@ -88,6 +92,17 @@ const Collections = () => {
             return filter.sizes.length === 0 ? getProductsByPrice(productArr) : getProductsByPrice(getProductsBySizes(productArr));
         }
     }
+
+    const scrolledProducts = getFilteredProducts().slice(0, 12 * scrollCount)
+
+    const fetchMoreProducts = () => {
+        if (scrolledProducts.length === getFilteredProducts().length && scrolledProducts.length > 0) {
+            setIsScrolling(false);
+        }
+        setTimeout(() => {
+            setScrollCount(scrollCount + 1)
+        }, 500)
+    };
 
     return (
         <Layout>
@@ -149,25 +164,36 @@ const Collections = () => {
                                         </span>
                                     </div>
                                 </div>
-                                {
-                                    filteredProducts().length > 0 ?
-                                        <div className="products-body">
-                                            <div className="row">
-                                                {filteredProducts().map((product) => (
-                                                    <div className="col-3 mgt-25">
-                                                        <ProductItem product={product} />
-                                                    </div>
-                                                ))}
+                                <InfiniteScroll
+                                    dataLength={scrolledProducts.length} //This is important field to render the next data
+                                    next={fetchMoreProducts}
+                                    loader={<h1 style={{ textAlign: 'center' }}>Loading...</h1>}
+                                    hasMore={isScrolling}
+                                    style={{ overflow: 'hidden' }}
+                                    endMessage={
+                                        <h1 style={{ textAlign: 'center' }}>Bạn đã xem hết toàn bộ sản phẩm cần tìm</h1>
+                                    }
+                                >
+                                    {
+                                        scrolledProducts.length > 0 ?
+                                            <div className="products-body">
+                                                <div className="row">
+                                                    {scrolledProducts.map((product) => (
+                                                        <div className="col-3 mgt-25">
+                                                            <ProductItem product={product} />
+                                                        </div>
+                                                    ))}
+                                                </div>
                                             </div>
-                                        </div>
-                                        : <h1 style={{ margin: "50px" }}> Không có sản phẩm nào được tìm thấy </h1>
-                                }
+                                            : <h1 style={{ margin: "50px" }}> Không có sản phẩm nào được tìm thấy </h1>
+                                    }
+                                </InfiniteScroll>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </Layout>
+            </div >
+        </Layout >
     );
 };
 

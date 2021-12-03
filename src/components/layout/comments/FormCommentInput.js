@@ -17,7 +17,7 @@ const FormCommentInput = ({ rating, productId, isAddedComment, setIsAddedComment
   }, [rating, productId]);
 
   const handleSubmitReview = async () => {
-    if (!auth) {
+    if (!auth.user) {
       alert("Vui lòng đăng nhập để có thể đánh giá sản phẩm!");
     } else {
       if (review.comment.length === 0 || rating === 0)
@@ -29,9 +29,9 @@ const FormCommentInput = ({ rating, productId, isAddedComment, setIsAddedComment
             alert("Gửi đánh giá thành công!");
             setReview({ rating: 0, comment: "", productId: "" });
             setIsAddedComment(!isAddedComment);
-          } else alert("Bạn chỉ được đánh giá sản phẩm 1 lần !");
+          }
         } catch (e) {
-          alert("Gửi đánh giá không thành công");
+          alert("Bạn chỉ được đánh giá sản phẩm 1 lần !");
         }
       }
     }
