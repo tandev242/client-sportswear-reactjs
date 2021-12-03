@@ -43,7 +43,7 @@ const MyOrder = () => {
         type: "cancelled"
       }
       try {
-        const res = await dispatch(cancelOrder(payload));
+        const res = await dispatch(cancelOrder(payload)).unwrap();
         if (res.status === 202) {
           alert("Bạn đã hủy đơn hàng thành công !");
         } else {
