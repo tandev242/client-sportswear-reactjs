@@ -3,6 +3,14 @@ import CommentItem from "./CommentItem";
 import FormCommentInput from "./FormCommentInput";
 const Comments = ({ product, isAddedComment, setIsAddedComment }) => {
   const [rating, setRating] = useState(0);
+
+  const sortedReviews = product.reviews
+    .sort((a, b) => {
+      var dateA = new Date(a.createdAt).getTime();
+      var dateB = new Date(b.createdAt).getTime();
+      return dateA < dateB ? 1 : -1; // ? -1 : 1 for ascending/increasing order
+    })
+
   return (
     <div className="comments">
       <div className="comments-header">
@@ -116,10 +124,10 @@ const Comments = ({ product, isAddedComment, setIsAddedComment }) => {
             <h3>Bình luận : {product.reviews.length}</h3>
           </div>
           <div className="comments-body__list-body">
-            {product.reviews.map((review) => (
+            {sortedReviews.map((review) => (
               <CommentItem review={review} key={review._id} />
             ))}
-          </div>
+          </div>  
         </div>
       </div>
     </div>

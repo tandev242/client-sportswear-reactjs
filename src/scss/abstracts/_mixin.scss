@@ -25,6 +25,17 @@
   color: #555555;
 }
 
+@mixin title-center-1024 {
+  font-size: 1.6rem;
+  font-weight: bold;
+  line-height: 1.6rem;
+  margin-bottom: 20px;
+  margin-top: 25px;
+  text-transform: uppercase;
+  text-align: center;
+  color: #555555;
+}
+
 @mixin text-title {
   text-transform: uppercase;
   font-size: 1.2rem;
@@ -114,5 +125,10 @@
       height: 2px;
       background-color: #e6ae47;
     }
+  }
+}
+@mixin responsive($width) {
+  @media (max-width: $width) {
+    @content;
   }
 }

@@ -167,7 +167,7 @@ const Account = () => {
           profilePicture: reader.result,
           profilePictureToChange: e.target.files[0],
         });
-      }
+      } else return;
     };
     reader.readAsDataURL(e.target.files[0]);
   };

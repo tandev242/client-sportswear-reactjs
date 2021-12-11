@@ -167,7 +167,6 @@ const Collections = () => {
                                 <InfiniteScroll
                                     dataLength={scrolledProducts.length} //This is important field to render the next data
                                     next={fetchMoreProducts}
-                                    loader={<h1 style={{ textAlign: 'center' }}>Loading...</h1>}
                                     hasMore={isScrolling}
                                     style={{ overflow: 'hidden' }}
                                     endMessage={

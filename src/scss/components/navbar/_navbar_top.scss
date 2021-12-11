@@ -3,14 +3,11 @@
   display: flex;
   align-items: center;
   position: relative;
+
   &__logo {
     text-align: center;
     padding: 0 76px;
     &-link {
-      color: $white;
-      text-decoration: none;
-      font-size: 1.6rem;
-      line-height: 1.6rem;
       & img {
         height: 50px;
       }
@@ -18,11 +15,11 @@
   }
 
   &__search {
-    flex: 1;
     background-color: $white;
     position: relative;
     border-radius: 2px;
     border: none;
+    width: 400px;
     &-input {
       width: 100%;
       outline: none;
@@ -245,6 +242,13 @@
     display: none;
   }
 }
+@media (min-width: 1024px) {
+  .navbar-top {
+    &__search {
+      flex: 1;
+    }
+  }
+}
 @media screen and (max-width: 1024px) {
   .navbar-top {
     & .mobile-menu {
@@ -256,6 +260,40 @@
       &:hover {
         color: $hover-link;
       }
+    }
+
+    &__user {
+      padding-left: 150px;
+      padding-right: 50px;
+    }
+  }
+}
+@media screen and (max-width: 756px) {
+  .navbar-top {
+    height: 50px;
+    &__logo {
+      display: none;
+      padding: 0 10px;
+      &-link img {
+        height: 50px;
+      }
+    }
+    &__search {
+      background-color: $white;
+      position: relative;
+      left: 50px;
+      width: 200px;
+      &-icon {
+        position: absolute;
+        top: 1px;
+        right: 1px;
+        width: 40px;
+        height: 94%;
+      }
+    }
+    &__user {
+      padding-right: 80px;
+      padding-left: 80px;
     }
   }
 }

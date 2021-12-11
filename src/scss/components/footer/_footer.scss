@@ -52,3 +52,28 @@
     }
   }
 }
+@media screen and (max-width: 1024px) {
+  .footer {
+    width: 100vw;
+    &-action {
+      display: none;
+    }
+    &-copyright {
+      padding-top: 0 !important;
+      width: 100vw;
+    }
+  }
+}
+
+@media screen and (max-width: 765px) {
+  .footer {
+    width: 100vw;
+    &-action {
+      display: none;
+    }
+    &-copyright {
+      padding-top: 0 !important;
+      width: 100vw;
+    }
+  }
+}

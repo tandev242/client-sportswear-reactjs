@@ -79,17 +79,53 @@
     }
   }
 }
-// .seperate {
-//   position: relative;
 
-//   &::after {
-//     content: "";
-//     position: absolute;
-//     top: 100%;
-//     width: 700px;
-//     left: 50%;
-//     transform: translateX(-50%);
-//     height: 1px;
-//     background-color: #d1d1d1;
-//   }
-// }
+@media screen and (max-width: 1024px) {
+  .banner {
+    width: 100vw;
+    &__heading {
+      @include title-center-1024;
+    }
+
+    &-3 {
+      &__body {
+        padding-left: 15px;
+        &-title {
+          @include text-title;
+        }
+        &-description {
+          @include text-description;
+        }
+      }
+      &::before {
+        @include banner-before;
+      }
+      &:hover::before {
+        @include banner-before-hover;
+      }
+      &:hover &__body-title {
+        color: $hover-banner;
+      }
+    }
+
+    &-4 {
+      display: block;
+      @include remove-a;
+      outline: none;
+      position: relative;
+      overflow: hidden;
+      border-radius: 2px;
+      &__img {
+        width: 100%;
+        border-radius: 2px;
+      }
+      &__title {
+        padding-left: 15px;
+        padding-top: 4px;
+        font-size: 1rem;
+        font-weight: 500;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
