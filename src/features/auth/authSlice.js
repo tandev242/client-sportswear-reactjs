@@ -2,6 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { resetCartSlice } from "../cart/cartSlice";
 import { resetOrderSlice } from "../order/orderSlice";
 import { resetDeliveryInfoSlice } from "../deliveryInfo/deliveryInfoSlice";
+import { resetRecommendSlice } from "../recommend/recommendSlice";
+
 import authAPI from "../../api/authAPI";
 
 export const login = createAsyncThunk("auth/login", async (user) => {
@@ -19,6 +21,7 @@ export const logout = createAsyncThunk(
     await thunkAPI.dispatch(resetDeliveryInfoSlice());
     await thunkAPI.dispatch(resetOrderSlice());
     await thunkAPI.dispatch(resetCartSlice());
+    await thunkAPI.dispatch(resetRecommendSlice());
     return response;
   }
 );
@@ -56,7 +59,8 @@ const initialState = {
   user: null,
   authenticate: false,
   authenticating: false,
-  token: null,
+  accessToken: null,
+  refreshToken: null,
   loading: false,
   error: null,
 };
@@ -75,9 +79,11 @@ export const authSlice = createSlice({
     [login.fulfilled]: (state, action) => {
       state.loading = false;
       state.user = action.payload.data.user;
-      state.token = action.payload.data.token;
       state.authenticate = true;
-      localStorage.setItem("token", state.token);
+      state.accessToken = action.payload.data.accessToken;
+      localStorage.setItem("accessToken", state.accessToken);
+      state.refreshToken = action.payload.data.refreshToken;
+      localStorage.setItem("refreshToken", state.refreshToken);
       localStorage.setItem("user", JSON.stringify(state.user));
     },
     [logout.pending]: (state) => {
@@ -104,8 +110,10 @@ export const authSlice = createSlice({
       state.loading = false;
       state.authenticate = true;
       state.user = action.payload.data.user;
-      state.token = action.payload.data.token;
-      localStorage.setItem("token", state.token);
+      state.accessToken = action.payload.data.accessToken;
+      localStorage.setItem("accessToken", state.accessToken);
+      state.refreshToken = action.payload.data.refreshToken;
+      localStorage.setItem("refreshToken", state.refreshToken);
       localStorage.setItem("user", JSON.stringify(state.user));
     },
     [loginByGoogle.pending]: (state) => {
@@ -119,8 +127,10 @@ export const authSlice = createSlice({
       state.loading = false;
       state.authenticate = true;
       state.user = action.payload.data.user;
-      state.token = action.payload.data.token;
-      localStorage.setItem("token", state.token);
+      state.accessToken = action.payload.data.accessToken;
+      localStorage.setItem("accessToken", state.accessToken);
+      state.refreshToken = action.payload.data.refreshToken;
+      localStorage.setItem("refreshToken", state.refreshToken);
       localStorage.setItem("user", JSON.stringify(state.user));
     },
     [isUserLoggedIn.pending]: (state) => {
@@ -133,7 +143,7 @@ export const authSlice = createSlice({
     [isUserLoggedIn.fulfilled]: (state, action) => {
       state.loading = false;
       state.user = action.payload.data.user;
-      state.token = localStorage.getItem("token");
+      state.accessToken = localStorage.getItem("accessToken");
       state.authenticate = true;
     },
   },

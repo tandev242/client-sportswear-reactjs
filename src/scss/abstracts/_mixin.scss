@@ -127,8 +127,8 @@
     }
   }
 }
-@mixin responsive($width) {
-  @media (max-width: $width) {
+@mixin responsive($min-width, $max-width) {
+  @media (min-width: $min-width) and (max-width: $max-width) {
     @content;
   }
 }

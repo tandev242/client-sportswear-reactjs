@@ -30,7 +30,11 @@ const MyOrder = () => {
       return arr.filter((item) => item.paymentStatus === "cancelled");
     }
     const filteredArr = arr.filter((item) => {
-      if (lastOrderStatus(item) === status && item.paymentStatus !== "cancelled") return true;
+      if (
+        lastOrderStatus(item) === status &&
+        item.paymentStatus !== "cancelled"
+      )
+        return true;
       return false;
     });
     return filteredArr;
@@ -40,8 +44,8 @@ const MyOrder = () => {
     if (window.confirm("Bạn có chắc muốn hủy đơn hàng này !")) {
       const payload = {
         orderId: order._id,
-        type: "cancelled"
-      }
+        type: "cancelled",
+      };
       try {
         const res = await dispatch(cancelOrder(payload)).unwrap();
         if (res.status === 202) {
@@ -53,7 +57,7 @@ const MyOrder = () => {
         alert("Đã có lỗi xảy ra");
       }
     }
-  }
+  };
 
   return (
     <Layout>
@@ -77,14 +81,16 @@ const MyOrder = () => {
                       <option value="shipped">Đang giao hàng</option>
                       <option value="delivered">Giao hàng thành công</option>
                       <option value="cancelled">Đã hủy</option>
-
                     </select>
                   </div>
                 </div>
                 <div className="account-wrapper__order__body">
                   {/* 1 đơn hàng trong list các đơn hàng */}
                   {orders.length > 0 ? (
-                    <OrderItem orders={filteredOrders(orders)} handleCancelOrder={handleCancelOrder} />
+                    <OrderItem
+                      orders={filteredOrders(orders)}
+                      handleCancelOrder={handleCancelOrder}
+                    />
                   ) : (
                     <h1
                       style={{

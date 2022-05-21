@@ -27,6 +27,7 @@ import { getCartItems } from "./features/cart/cartSlice";
 import "react-toastify/dist/ReactToastify.css";
 import "./scss/app.scss";
 import { getAllOrders } from "./features/order/orderSlice";
+import { getRecommendedProductsByBehavior } from "./features/recommend/recommendSlice";
 
 function App() {
   const dispatch = useDispatch();
@@ -43,6 +44,7 @@ function App() {
     if (!auth.authenticate) {
       dispatch(isUserLoggedIn());
     } else {
+      dispatch(getRecommendedProductsByBehavior());
       dispatch(getDeliveryInfo());
       dispatch(getCartItems());
       dispatch(getAllOrders());

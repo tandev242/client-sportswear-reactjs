@@ -26,7 +26,7 @@ export const categorySlice = createSlice({
     },
     [getCategories.fulfilled]: (state, action) => {
       state.loading = false;
-      state.categories = action.payload.data.categoryList;
+      state.categories = action.payload.data.categories;
     },
   },
 });
