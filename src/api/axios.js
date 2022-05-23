@@ -1,6 +1,6 @@
 import axios from "axios";
-// import store from "../app/store";
 
+// base url
 const api = "https://api-sportswear.herokuapp.com/api";
 // const api = "http://localhost:5000/api";
 
