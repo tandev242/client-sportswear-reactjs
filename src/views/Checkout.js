@@ -3,6 +3,7 @@ import { Select, FormControl, MenuItem, InputLabel } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { paymentWithMomo, addOrder } from "../features/order/orderSlice";
+import behaviorAPI from "../api/behaviorAPI";
 
 const Checkout = (props) => {
   const orderItems = props.location.state;
@@ -74,6 +75,9 @@ const Checkout = (props) => {
     if (paymentType === "cod") {
       const res = await dispatch(addOrder(order)).unwrap();
       if (res.status === 201) {
+        order.items.forEach((item) => {
+          behaviorAPI.addBehavior({ product: item.productId, type: "buy" })
+        })
         alert("Đặt hàng thành công!");
         history.replace("/cart");
       }
@@ -213,8 +217,8 @@ const Checkout = (props) => {
                                 {new Intl.NumberFormat("de-DE").format(
                                   (orderItem.product.price -
                                     (orderItem.product.discountPercent / 100) *
-                                      orderItem.product.price) *
-                                    orderItem.quantity
+                                    orderItem.product.price) *
+                                  orderItem.quantity
                                 )}
                               </p>
                             </div>

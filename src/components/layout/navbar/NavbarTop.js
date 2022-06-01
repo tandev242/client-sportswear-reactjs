@@ -8,7 +8,11 @@ const NavbarTop = () => {
   const history = useHistory();
   const auth = useSelector((state) => state.auth);
   const { cartItems } = useSelector((state) => state.cart);
+  const  products  = useSelector( state => state.product) ;
   const [searchText, setSearchText] = useState("");
+  const [isNotFound,setNotFound] = useState(true);
+  const [searchProducts,setSearchProducts] = useState([]);
+  const [isShow, setShow] = useState(false);
   // Handle logout => clear token
   const handleLogOut = () => {
     const confirmLogOut = window.confirm(
@@ -18,6 +22,7 @@ const NavbarTop = () => {
       dispatch(logout());
     }
   };
+
   const [isMenuOpen, setMenuOpen] = useState(false);
   const handleMenu = () => {
     const mobileMenu = document.querySelector(".navbar-bottom__list");
@@ -30,6 +35,30 @@ const NavbarTop = () => {
     }
   };
 
+  const searchTextByOnChange = (e) => {
+    setSearchText(e)
+    console.log(products);
+    let searchKey = e.toLowerCase().trim();
+    if(products && products.hotProducts){
+      let recommendProducts = products.hotProducts.filter(item => searchProductBySearchText(item,searchKey))
+      if(recommendProducts && recommendProducts.length !== 0){
+        setSearchProducts(recommendProducts)
+        setNotFound(false)
+      }else{
+        setNotFound(true)
+      }
+    }
+    
+  }
+  const searchProductBySearchText = (item,searchText) => {
+    
+      if(item.category.name.toLowerCase().search(searchText) != -1 
+      || item.description.toLowerCase().search(searchText) != -1 
+      || item.name.toLowerCase().search(searchText) != -1){
+        return true;
+      }
+      return false;
+  }
   const handleSearch = (e) => {
     e.preventDefault();
     if (searchText === "") {
@@ -38,7 +67,6 @@ const NavbarTop = () => {
       history.push(`/collections/search?text=${searchText}`);
     }
   };
-
   return (
     <div className="navbar-top">
       <div className="mobile-menu" onClick={() => handleMenu()}>
@@ -64,12 +92,15 @@ const NavbarTop = () => {
           />
         </NavLink>
       </div>
+      
       <form className="navbar-top__search" onSubmit={(e) => handleSearch(e)}>
         <input
+        onFocus = {() => setShow(true)}
+        onBlur = {() => setShow(false)}
           className="navbar-top__search-input"
           placeholder="Tìm kiếm ..."
           value={searchText}
-          onChange={(e) => setSearchText(e.target.value)}
+          onChange={(e) => searchTextByOnChange(e.target.value)}
         />
         <button className="navbar-top__search-icon" type="submit">
           <svg
@@ -83,7 +114,42 @@ const NavbarTop = () => {
             <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
           </svg>
         </button>
+        {
+          isShow && (
+            <div className="recommend-box">
+            <div className="title">
+              <h3>Sản phẩm có thể bạn đang tìm</h3>
+            </div>
+            {
+              isNotFound? (
+                <div className="not-found">
+                Không tìm thấy sản phẩm khớp với từ khóa !
+              </div>
+              ):(
+              <>
+                <div className="product-container">
+                {
+                  searchProducts.map((item,index) => (
+                    <div className="product-item" key={index} onMouseDown = {() => {history.push(`/product/${item.slug}`)}}>
+                      <img src={item.productPictures[0].img} alt="" className="img" />
+                      <div className="content">
+                        <p className="name">{item.name}</p>
+                      </div>
+                    </div>
+                  ))
+                }
+                </div>
+                <div className="show-all"> 
+                  <button onMouseDown = {() => history.push(`/collections/search?text=${searchText}`)}>Xem tất cả {searchProducts.length} sản phẩm.</button>
+                </div>
+              </>
+              )}
+           
+        </div>
+        )}
+       
       </form>
+      
       <div className="navbar-top__user">
         {/* navbar-top__user-info--define : define
         navbar-top__user-info--undefine : undefine */}

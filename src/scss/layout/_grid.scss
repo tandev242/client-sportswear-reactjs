@@ -5,7 +5,7 @@
     padding-left: 10px;
     padding-right: 10px;
   }
-  @include responsive(765px) {
+  @include responsive(300px, 765px) {
     .col-#{$i} {
       flex: 0 0 100%;
       width: 100%;
@@ -19,7 +19,7 @@
   padding-left: 10px;
   padding-right: 10px;
 }
-@include responsive(765px) {
+@include responsive(300px, 765px) {
   .col-2-4 {
     flex: 0 0 100%;
     width: 100%;
@@ -28,7 +28,7 @@
   }
 }
 
-@include responsive(1024px) {
+@include responsive(766px, 1024px) {
   .col-2-4 {
     flex: 0 0 50%;
     width: 50%;

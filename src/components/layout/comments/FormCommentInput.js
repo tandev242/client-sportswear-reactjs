@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { addProductReview } from "../../../features/product/productSlice";
 import { useDispatch } from "react-redux";
+import behaviorAPI from "../../../api/behaviorAPI";
 
 const FormCommentInput = ({ rating, productId, isAddedComment, setIsAddedComment }) => {
   const auth = useSelector((state) => state.auth);
@@ -25,6 +26,8 @@ const FormCommentInput = ({ rating, productId, isAddedComment, setIsAddedComment
       else {
         try {
           const res = await dispatch(addProductReview(review)).unwrap();
+          if(rating > 3)
+            behaviorAPI.addBehavior({ product: review.productId, type: "rate" })
           if (res.status === 202) {
             alert("Gửi đánh giá thành công!");
             setReview({ rating: 0, comment: "", productId: "" });

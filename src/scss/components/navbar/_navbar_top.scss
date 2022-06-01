@@ -29,6 +29,11 @@
       color: #666;
       border-radius: 2px;
       border: none;
+
+      // &:focus ~ .recommend-box{
+      //   display: block;
+        
+      // } 
     }
 
     &-icon {
@@ -47,6 +52,79 @@
       &:hover {
         background-color: $hover-color;
         color: $black;
+      }
+      
+    }
+    & .recommend-box{
+      width: 100%;
+      background-color: rgb(250, 244, 233);
+      position: absolute;
+      // display: none;
+      top: calc(100% + 8px);
+      left: 0;
+      z-index: 999;
+      box-shadow: 1px 0 5px rgb(168, 167, 167) ;
+      overflow: hidden;
+      & .title{
+        background-color: rgb(228, 181, 180);
+        & h3{
+          padding: 4px 8px;
+          font-size: 1.1rem;
+        }
+        border-bottom: 1px solid #ccc;
+      }
+      & .product-container{
+        max-height: 55vh;
+        overflow: hidden;
+        & .product-item{
+          text-decoration: none;
+          padding: 4px 6px;
+          display: flex;
+          border-bottom: 1px solid #ccc;
+          & .img{
+            height: 50px;
+            width: 50px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+          }
+          & .content{
+            align-self: center;
+            & .name{
+              color: $color-update;
+              font-size: 1rem;
+              padding-left: 12px;
+              width: 500px;
+              @include text-over
+            }
+          }
+          &:hover{
+            background-color: rgb(247, 213, 213);
+            cursor: pointer;
+          }
+        }
+      }
+      & .show-all{
+        height: 32px;
+        width: 100%;
+        & button{
+          padding: 6px;
+          border: none;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+          font-size: 1rem;
+          background-color: rgb(250, 244, 233);
+          &:hover{
+            background-color: rgb(247, 220, 170);
+          }
+        }
+      }
+      & .not-found{
+        width: 100%;
+        padding: 20px;
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: 400;
       }
     }
   }
@@ -292,7 +370,7 @@
       }
     }
     &__user {
-      padding-right: 80px;
+      padding-right: 32px;
       padding-left: 80px;
     }
   }

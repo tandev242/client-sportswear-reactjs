@@ -7,6 +7,7 @@ import productReducer from "../features/product/productSlice";
 import cartReducer from "../features/cart/cartSlice";
 import deliveryInfoReducer from "../features/deliveryInfo/deliveryInfoSlice";
 import orderReducer from "../features/order/orderSlice";
+import recommendReducer from "../features/recommend/recommendSlice";
 
 export default configureStore({
   reducer: {
@@ -17,7 +18,8 @@ export default configureStore({
     product: productReducer,
     cart: cartReducer,
     deliveryInfo: deliveryInfoReducer,
-    order: orderReducer
+    order: orderReducer,
+    recommend: recommendReducer
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -51,36 +51,36 @@
     background-color: rgb(184, 187, 186);
   }
 }
-@media screen and (max-width: 1024px) {
-  .policy {
-    width: 100vw;
-    &-item {
-      &__body {
-        &-description {
-          width: 300px;
-        }
-      }
-    }
+// @media screen and (max-width: 1024px) {
+//   .policy {
+//     width: 100vw;
+//     &-item {
+//       &__body {
+//         &-description {
+//           width: 300px;
+//         }
+//       }
+//     }
 
-    &::before {
-      width: 500px;
-    }
-  }
-}
+//     &::before {
+//       width: 500px;
+//     }
+//   }
+// }
 
-@media screen and (max-width: 765px) {
-  .policy {
-    width: 100vw;
-    &-item {
-      &__body {
-        &-description {
-          width: 300px;
-        }
-      }
-    }
+// @media screen and (max-width: 765px) {
+//   .policy {
+//     width: 100vw;
+//     &-item {
+//       &__body {
+//         &-description {
+//           width: 300px;
+//         }
+//       }
+//     }
 
-    &::before {
-      width: 240px;
-    }
-  }
-}
+//     &::before {
+//       width: 240px;
+//     }
+//   }
+// }
