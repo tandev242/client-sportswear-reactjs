@@ -1,11 +1,6 @@
 import axios from "axios";
 
-<<<<<<< HEAD
-// base url
-const api = "https://api-sportswear.herokuapp.com/api";
-=======
 const api = "https://ec2-3-112-35-74.ap-northeast-1.compute.amazonaws.com/api";
->>>>>>> dev
 // const api = "http://localhost:5000/api";
 
 const axiosInstance = axios.create({
