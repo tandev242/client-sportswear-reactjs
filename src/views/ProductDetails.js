@@ -191,7 +191,7 @@ const ProductDetails = () => {
     }
   };
   // Handle add cart
-  const handleAddCart = () => {
+  const handleAddCart = async () => {
     if (cartItem.size._id === undefined || cartItem.quantity === 0) {
       alert("Kiểm tra kích thước giày và số lượng muốn mua.");
     } else if (auth.authenticate === false) {
@@ -227,7 +227,11 @@ const ProductDetails = () => {
           ],
         };
 
-        dispatch(addToCart(cart));
+        const res = await dispatch(addToCart(cart))
+        if(res.error){
+          alert("Không đủ số lượng sản phẩm trong kho !")
+          return;
+        }
         pageRedirects();
       }
     }

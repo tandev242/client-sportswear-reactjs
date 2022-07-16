@@ -73,21 +73,27 @@ const Checkout = (props) => {
       items: getItemsToPay(),
     };
     if (paymentType === "cod") {
-      const res = await dispatch(addOrder(order)).unwrap();
+      try{
+        var res = await dispatch(addOrder(order)).unwrap()
+      }catch(error){
+        alert("Số lượng sản phẩm trong kho không đủ ! Vui lòng chọn sản phẩm khác")
+        history.goBack(-1)
+        return;
+      }
       if (res.status === 201) {
         order.items.forEach((item) => {
           behaviorAPI.addBehavior({ product: item.productId, type: "buy" })
         })
-        alert("Đặt hàng thành công!");
-        history.replace("/cart");
+        alert("Đặt hàng thành công!")
+        history.replace("/cart")
       }
     } else if (paymentType === "card") {
-      const res = await dispatch(paymentWithMomo({ order })).unwrap();
-      const url = res.data.url;
+      const res = await dispatch(paymentWithMomo({ order })).unwrap()
+      const url = res.data.url
       if (url) {
-        window.location.href = url;
+        window.location.href = url
       } else {
-        alert("Hiện tại không thể thanh toán bằng hình thức này !");
+        alert("Hiện tại không thể thanh toán bằng hình thức này !")
       }
     }
   };
