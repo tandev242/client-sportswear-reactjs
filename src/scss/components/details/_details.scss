@@ -140,7 +140,7 @@
             &:checked + .body-size__options-item__label::before {
               transform: scale(1);
             }
-          }
+}
           &__label {
             width: 40px;
             position: relative;
@@ -190,8 +190,12 @@
               border-radius: 4px;
               transform: scale(0);
             }
+            
           }
-
+          .disable-option{
+            opacity: 0.3;
+            cursor: default;
+          }
           &--selected {
             position: relative;
             border-color: $red-o;
@@ -210,9 +214,42 @@
             display: block;
           }
         }
+        
       }
     }
-
+    .rating-result{
+      margin: 10px 0;
+      display: flex;
+      align-items: center;
+      .rating{
+        width: 120px;
+        label{
+          color: $red-o;
+          margin: 5px 0;
+          padding: 2px;
+        }
+        .star{
+          position: relative;
+          .star-1{
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 120px;
+            overflow: hidden;
+          }
+        }
+      }
+      .seperate{
+        width: 2px;
+        height: 22px;
+        background-color: #999;
+        margin: 0 12px;
+      }
+      .review-count{
+        font-size: 1.2rem;
+        color: $primary-text
+      }
+    }
     &-quantity {
       display: flex;
       align-items: center;
@@ -223,7 +260,7 @@
         margin-right: 4px;
         color: $second-text;
       }
-      &__input {
+&__input {
         width: 60px;
         font-size: 1.2rem;
         height: 28px;
@@ -335,6 +372,7 @@
             color: $red-o;
           }
         }
+        
       }
       &__form {
         margin-top: 10px;
@@ -358,7 +396,7 @@
           &__text {
             min-width: 400px;
             max-width: 400px;
-            min-height: 90px;
+min-height: 90px;
             max-height: 90px;
             padding: 8px;
             font-size: 1.1rem;
