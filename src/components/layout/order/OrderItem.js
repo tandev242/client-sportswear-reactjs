@@ -79,7 +79,7 @@ const OrderItem = (props) => {
             {/* .................. */}
             <div className="summary">
               <div className="summary-payments">
-                Hình thức thanh toán: <span>{order.paymentType}</span>
+                Hình thức thanh toán: <span>{order.paymentType === 'card' ? 'MOMO' : order.paymentType}</span>
               </div>
               <div className="summary-money">
                 <span className="summary-money__icon">
